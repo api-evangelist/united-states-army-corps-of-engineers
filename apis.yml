@@ -1,15 +1,19 @@
-name: united-states-army-corps-of-engineers
-description: Needs a description.
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json-icons/apis-json.png
-url: https://example.com/apis/apis.yml
-type: Contract
+aid: united-states-army-corps-of-engineers
+name: United States Army Corps of Engineers
+description: The U.S. Army Corps of Engineers provides engineering and construction services for the nation, managing water resources, infrastructure, and environmental projects.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/united-states-army-corps-of-engineers/refs/heads/main/apis.yml
+type: Index
 created: '2024-12-25'
-modified: '2024-12-25'
-specificationVersion: '0.18'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 tags:
-  - Tag
+  - Federal Government
+  - Engineering
+  - Water Resources
 apis: []
 common: []
 maintainers:
-  - FN: API Evangelist
-    email: info@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
