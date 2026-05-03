@@ -1,0 +1,87 @@
+extends:
+  - spectral:oas
+
+rules:
+  # CWMS-specific naming conventions
+
+  cwms-office-code-documented:
+    description: Office query parameters should document the three-character USACE district code convention
+    message: "Office parameter description should mention three-character USACE district office code"
+    severity: warn
+    given: $.paths..parameters[?(@.name == "office")].description
+    then:
+      function: pattern
+      functionOptions:
+        match: "(three.character|district office|office code)"
+
+  cwms-timeseries-name-format:
+    description: Time series name parameters should reference CWMS identifier format
+    message: "Time series name parameter should document CWMS identifier format"
+    severity: warn
+    given: $.paths..[?(@.name == "name" && @.in == "query")].description
+    then:
+      function: truthy
+
+  cwms-pagination-documented:
+    description: Paginated endpoints should document page and page-size parameters
+    message: "Paginated endpoints should include page and page-size parameters"
+    severity: info
+    given: $.paths..get.parameters[?(@.name == "page")]
+    then:
+      field: description
+      function: truthy
+
+  cwms-unit-enum-values:
+    description: Unit parameters should have clear enum values
+    message: "Unit parameters should specify EN (English) and SI (metric) options"
+    severity: warn
+    given: $.paths..parameters[?(@.name == "unit")].schema
+    then:
+      field: enum
+      function: truthy
+
+  cwms-timestamp-format-documented:
+    description: Date/time parameters should reference ISO 8601 or epoch milliseconds
+    message: "Date/time parameters should document ISO 8601 format or milliseconds since epoch"
+    severity: warn
+    given: $.paths..parameters[?(@.name == "begin" || @.name == "end")].description
+    then:
+      function: pattern
+      functionOptions:
+        match: "(ISO 8601|milliseconds|epoch)"
+
+  cwms-response-schemas-defined:
+    description: All GET responses should reference a schema
+    message: "{{description}}: GET operation 200 response should define a schema"
+    severity: warn
+    given: $.paths..get.responses.200.content.application/json
+    then:
+      field: schema
+      function: truthy
+
+  cwms-operation-ids-present:
+    description: All operations must have operationIds
+    message: "Operation {{path}} must have an operationId"
+    severity: error
+    given: $.paths[*][*]
+    then:
+      field: operationId
+      function: truthy
+
+  cwms-tags-present:
+    description: All operations should have at least one tag
+    message: "Operation {{path}} should have at least one tag"
+    severity: warn
+    given: $.paths[*][*]
+    then:
+      field: tags
+      function: truthy
+
+  cwms-description-present:
+    description: All operations should have descriptions
+    message: "Operation {{path}} should have a description"
+    severity: warn
+    given: $.paths[*][*]
+    then:
+      field: description
+      function: truthy

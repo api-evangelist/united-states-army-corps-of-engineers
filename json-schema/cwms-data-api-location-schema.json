@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cwms-data.usace.army.mil/cwms-data/schemas/location",
+  "title": "CWMS Location",
+  "description": "A physical location managed by the U.S. Army Corps of Engineers in the Corps Water Management System.",
+  "type": "object",
+  "required": ["name", "office-id"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The CWMS location identifier (e.g., DALT2, BIGE2)"
+    },
+    "office-id": {
+      "type": "string",
+      "description": "Three-character USACE district office code (e.g., SWT, LRN)",
+      "minLength": 2,
+      "maxLength": 5
+    },
+    "latitude": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90,
+      "description": "Decimal latitude in WGS84"
+    },
+    "longitude": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180,
+      "description": "Decimal longitude in WGS84"
+    },
+    "elevation": {
+      "type": ["number", "null"],
+      "description": "Elevation in the specified datum and unit"
+    },
+    "horizontal-datum": {
+      "type": "string",
+      "description": "Horizontal datum (e.g., WGS84, NAD83)"
+    },
+    "vertical-datum": {
+      "type": "string",
+      "description": "Vertical datum (e.g., NAVD88, NGVD29)"
+    },
+    "elevation-units": {
+      "type": "string",
+      "description": "Unit for elevation measurement (ft or m)"
+    },
+    "public-name": {
+      "type": "string",
+      "description": "Short public-facing name"
+    },
+    "long-name": {
+      "type": "string",
+      "description": "Full descriptive name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Descriptive text about the location"
+    },
+    "kind": {
+      "type": "string",
+      "description": "CWMS location kind",
+      "enum": [
+        "SITE",
+        "STREAM_LOCATION",
+        "PROJECT",
+        "TURBINE",
+        "EMBANKMENT",
+        "LOCK",
+        "OUTLET",
+        "OVERFLOW",
+        "BASE_RATING_TABLE"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "description": "Location type classification"
+    },
+    "state-initial": {
+      "type": "string",
+      "description": "Two-character U.S. state abbreviation",
+      "minLength": 2,
+      "maxLength": 2
+    },
+    "county-name": {
+      "type": "string",
+      "description": "County name"
+    },
+    "timezone-name": {
+      "type": "string",
+      "description": "IANA timezone name (e.g., US/Central)"
+    },
+    "nation": {
+      "type": "string",
+      "description": "Nation code (e.g., US)",
+      "default": "US"
+    },
+    "nearest-city": {
+      "type": "string",
+      "description": "Name of the nearest city"
+    }
+  }
+}

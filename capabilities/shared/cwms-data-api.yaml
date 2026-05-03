@@ -1,0 +1,622 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "CWMS Data API"
+  description: >-
+    Corps Water Management System (CWMS) RESTful Data Service providing access to
+    time series, location, rating, forecast, level, project, and basin data for
+    U.S. Army Corps of Engineers water resources nationwide.
+  tags:
+    - Water Management
+    - Hydrology
+    - Federal Government
+    - Time Series
+    - USACE
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      CWMS_API_TOKEN: CWMS_API_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: cwms
+      baseUri: https://cwms-data.usace.army.mil/cwms-data
+      description: "USACE Corps Water Management System REST Data API"
+      authentication:
+        type: bearer
+        token: "{{CWMS_API_TOKEN}}"
+      resources:
+        - name: catalog
+          path: /catalog/{datastore-type}
+          description: "Browse available CWMS data catalog"
+          operations:
+            - name: get-catalog
+              method: GET
+              description: "Returns catalog of available time series, locations, or ratings"
+              inputParameters:
+                - name: datastore-type
+                  in: path
+                  type: string
+                  required: true
+                  description: "Data type: TIMESERIES, LOCATIONS, or RATINGS"
+                - name: office
+                  in: query
+                  type: string
+                  required: false
+                  description: "Three-character USACE district office code"
+                - name: like
+                  in: query
+                  type: string
+                  required: false
+                  description: "CWMS wildcard filter pattern"
+                - name: page-size
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Number of results per page"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: locations
+          path: /locations
+          description: "USACE location data"
+          operations:
+            - name: get-locations
+              method: GET
+              description: "Returns location data for USACE-managed sites"
+              inputParameters:
+                - name: office
+                  in: query
+                  type: string
+                  required: false
+                  description: "Three-character USACE district office code"
+                - name: names
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated location names or wildcard pattern"
+                - name: unit
+                  in: query
+                  type: string
+                  required: false
+                  description: "Unit system: EN (English) or SI (metric)"
+                - name: datum
+                  in: query
+                  type: string
+                  required: false
+                  description: "Vertical datum (NAVD88, NGVD29)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: location
+          path: /locations/{location-id}
+          description: "Single USACE location"
+          operations:
+            - name: get-location
+              method: GET
+              description: "Returns data for a specific USACE location"
+              inputParameters:
+                - name: location-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "The CWMS location identifier"
+                - name: office
+                  in: query
+                  type: string
+                  required: false
+                  description: "Three-character USACE district office code"
+                - name: unit
+                  in: query
+                  type: string
+                  required: false
+                  description: "Unit system: EN or SI"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: timeseries
+          path: /timeseries
+          description: "CWMS time series data"
+          operations:
+            - name: get-timeseries
+              method: GET
+              description: "Returns time series data for a specified time window"
+              inputParameters:
+                - name: name
+                  in: query
+                  type: string
+                  required: true
+                  description: "CWMS time series identifier"
+                - name: office
+                  in: query
+                  type: string
+                  required: false
+                  description: "Three-character USACE district office code"
+                - name: unit
+                  in: query
+                  type: string
+                  required: false
+                  description: "Measurement unit for returned data"
+                - name: datum
+                  in: query
+                  type: string
+                  required: false
+                  description: "Vertical datum for elevation values"
+                - name: begin
+                  in: query
+                  type: string
+                  required: false
+                  description: "Start of time window (ISO 8601 or ms since epoch)"
+                - name: end
+                  in: query
+                  type: string
+                  required: false
+                  description: "End of time window (ISO 8601 or ms since epoch)"
+                - name: timezone
+                  in: query
+                  type: string
+                  required: false
+                  description: "Timezone for date/time interpretation"
+                - name: page-size
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Number of values per page"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: timeseries-recent
+          path: /timeseries/recent
+          description: "Most recent CWMS time series values"
+          operations:
+            - name: get-recent-timeseries
+              method: GET
+              description: "Returns the most recent time series values for current conditions"
+              inputParameters:
+                - name: office
+                  in: query
+                  type: string
+                  required: false
+                  description: "Three-character USACE district office code"
+                - name: name
+                  in: query
+                  type: string
+                  required: false
+                  description: "Time series identifier or wildcard pattern"
+                - name: recently-changed-within
+                  in: query
+                  type: string
+                  required: false
+                  description: "ISO 8601 duration (e.g., PT2H for 2 hours)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: levels
+          path: /levels
+          description: "CWMS location levels"
+          operations:
+            - name: get-levels
+              method: GET
+              description: "Returns location levels including flood stage and normal pool"
+              inputParameters:
+                - name: office
+                  in: query
+                  type: string
+                  required: false
+                  description: "Three-character USACE district office code"
+                - name: location-id
+                  in: query
+                  type: string
+                  required: false
+                  description: "Location identifier"
+                - name: unit
+                  in: query
+                  type: string
+                  required: false
+                  description: "Unit system: EN or SI"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: ratings
+          path: /ratings
+          description: "CWMS rating tables"
+          operations:
+            - name: get-ratings
+              method: GET
+              description: "Returns rating tables for converting between measured values"
+              inputParameters:
+                - name: office
+                  in: query
+                  type: string
+                  required: false
+                  description: "Three-character USACE district office code"
+                - name: rating-id
+                  in: query
+                  type: string
+                  required: false
+                  description: "Rating identifier (supports wildcards)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: basins
+          path: /basins
+          description: "River basin information"
+          operations:
+            - name: get-basins
+              method: GET
+              description: "Returns river basin information for USACE water management areas"
+              inputParameters:
+                - name: office
+                  in: query
+                  type: string
+                  required: false
+                  description: "Three-character USACE district office code"
+                - name: basin-id
+                  in: query
+                  type: string
+                  required: false
+                  description: "Basin identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: forecast-spec
+          path: /forecast-spec
+          description: "Forecast specifications"
+          operations:
+            - name: get-forecast-specs
+              method: GET
+              description: "Returns forecast specifications available in CWMS"
+              inputParameters:
+                - name: office
+                  in: query
+                  type: string
+                  required: false
+                  description: "Three-character USACE district office code"
+                - name: spec-id-mask
+                  in: query
+                  type: string
+                  required: false
+                  description: "Forecast spec ID filter mask"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: forecast-instance
+          path: /forecast-instance
+          description: "Forecast instances with time series data"
+          operations:
+            - name: get-forecast-instances
+              method: GET
+              description: "Returns forecast instances with associated time series data"
+              inputParameters:
+                - name: office
+                  in: query
+                  type: string
+                  required: false
+                  description: "Three-character USACE district office code"
+                - name: name
+                  in: query
+                  type: string
+                  required: false
+                  description: "Forecast spec name"
+                - name: forecast-date
+                  in: query
+                  type: string
+                  required: false
+                  description: "Forecast issue date (ISO 8601)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: projects
+          path: /projects
+          description: "USACE water resource projects"
+          operations:
+            - name: get-projects
+              method: GET
+              description: "Returns USACE water resource projects (dams, locks, reservoirs)"
+              inputParameters:
+                - name: office
+                  in: query
+                  type: string
+                  required: false
+                  description: "Three-character USACE district office code"
+                - name: id-mask
+                  in: query
+                  type: string
+                  required: false
+                  description: "Project ID filter mask"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: parameters
+          path: /parameters
+          description: "CWMS physical parameters"
+          operations:
+            - name: get-parameters
+              method: GET
+              description: "Returns the list of physical parameters in CWMS"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: version
+          path: /version
+          description: "API version information"
+          operations:
+            - name: get-version
+              method: GET
+              description: "Returns the current version of the CWMS Data API"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: cwms-data-rest
+      resources:
+        - path: /v1/catalog/{datastore-type}
+          name: catalog
+          operations:
+            - method: GET
+              name: get-catalog
+              description: "Browse CWMS data catalog"
+              call: "cwms.get-catalog"
+              with:
+                datastore-type: "rest.datastore-type"
+                office: "rest.office"
+                like: "rest.like"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/locations
+          name: locations
+          operations:
+            - method: GET
+              name: get-locations
+              description: "Get USACE location data"
+              call: "cwms.get-locations"
+              with:
+                office: "rest.office"
+                names: "rest.names"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/timeseries
+          name: timeseries
+          operations:
+            - method: GET
+              name: get-timeseries
+              description: "Get CWMS time series data"
+              call: "cwms.get-timeseries"
+              with:
+                name: "rest.name"
+                office: "rest.office"
+                begin: "rest.begin"
+                end: "rest.end"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/timeseries/recent
+          name: recent-timeseries
+          operations:
+            - method: GET
+              name: get-recent-timeseries
+              description: "Get most recent CWMS time series values"
+              call: "cwms.get-recent-timeseries"
+              with:
+                office: "rest.office"
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/levels
+          name: levels
+          operations:
+            - method: GET
+              name: get-levels
+              description: "Get CWMS location levels"
+              call: "cwms.get-levels"
+              with:
+                office: "rest.office"
+                location-id: "rest.location-id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/ratings
+          name: ratings
+          operations:
+            - method: GET
+              name: get-ratings
+              description: "Get CWMS rating tables"
+              call: "cwms.get-ratings"
+              with:
+                office: "rest.office"
+                rating-id: "rest.rating-id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/forecasts
+          name: forecasts
+          operations:
+            - method: GET
+              name: get-forecast-instances
+              description: "Get CWMS forecast instances"
+              call: "cwms.get-forecast-instances"
+              with:
+                office: "rest.office"
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/projects
+          name: projects
+          operations:
+            - method: GET
+              name: get-projects
+              description: "Get USACE water resource projects"
+              call: "cwms.get-projects"
+              with:
+                office: "rest.office"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: cwms-data-mcp
+      transport: http
+      tools:
+        - name: browse-cwms-catalog
+          description: "Browse available CWMS data catalog (time series, locations, ratings)"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-catalog"
+          with:
+            datastore-type: "tools.datastore-type"
+            office: "tools.office"
+            like: "tools.like"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-usace-locations
+          description: "Get location data for USACE-managed dams, reservoirs, and stream gages"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-locations"
+          with:
+            office: "tools.office"
+            names: "tools.names"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-timeseries-data
+          description: "Get time series measurements (stage, flow, precipitation, elevation) for a USACE location"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-timeseries"
+          with:
+            name: "tools.name"
+            office: "tools.office"
+            begin: "tools.begin"
+            end: "tools.end"
+            unit: "tools.unit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-current-conditions
+          description: "Get the most recent water condition readings at USACE locations"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-recent-timeseries"
+          with:
+            office: "tools.office"
+            name: "tools.name"
+            recently-changed-within: "tools.recently-changed-within"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-location-levels
+          description: "Get flood stage, normal pool, and other location levels for USACE sites"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-levels"
+          with:
+            office: "tools.office"
+            location-id: "tools.location-id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-rating-tables
+          description: "Get rating tables for converting stage to flow at USACE locations"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-ratings"
+          with:
+            office: "tools.office"
+            rating-id: "tools.rating-id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-forecasts
+          description: "Get hydrological forecast instances from USACE water management system"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-forecast-instances"
+          with:
+            office: "tools.office"
+            name: "tools.name"
+            forecast-date: "tools.forecast-date"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-usace-projects
+          description: "Get USACE water resource projects including dams, locks, and reservoirs"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-projects"
+          with:
+            office: "tools.office"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-river-basins
+          description: "Get river basin information for USACE water management areas"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-basins"
+          with:
+            office: "tools.office"
+            basin-id: "tools.basin-id"
+          outputParameters:
+            - type: object
+              mapping: "$."

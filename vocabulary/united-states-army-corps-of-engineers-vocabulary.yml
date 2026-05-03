@@ -1,0 +1,168 @@
+name: United States Army Corps of Engineers Vocabulary
+description: >-
+  Domain vocabulary for the U.S. Army Corps of Engineers covering water resources
+  management, hydrology, dam and reservoir operations, the Corps Water Management
+  System (CWMS), and civil engineering programs.
+tags:
+  - Water Resources
+  - Hydrology
+  - Federal Government
+  - Engineering
+  - USACE
+created: '2026-05-03'
+modified: '2026-05-03'
+
+terms:
+
+  - term: CWMS
+    label: Corps Water Management System
+    abbreviation: CWMS
+    definition: >-
+      The Corps Water Management System is the U.S. Army Corps of Engineers'
+      enterprise data management and decision support system for water resources.
+      It stores and manages real-time and historical hydrological data including
+      time series measurements, ratings, forecasts, and project information.
+    tags:
+      - System
+      - Data Management
+
+  - term: Time Series
+    label: Time Series
+    definition: >-
+      A sequence of measurements recorded at successive points in time, identified
+      in CWMS by a structured name in the format
+      Location.Parameter.Type.Interval.Duration.Version (e.g., DALT2.Stage.Inst.15Minutes.0.raw).
+    tags:
+      - Data
+      - Hydrology
+
+  - term: Rating Table
+    label: Rating Table
+    definition: >-
+      A mathematical relationship used to convert one measured parameter to another,
+      most commonly stage (water surface elevation) to discharge (flow). Rating
+      tables are critical for computing streamflow from gage height measurements.
+    tags:
+      - Hydrology
+      - Measurement
+
+  - term: Stage
+    label: Stage
+    definition: >-
+      The height of the water surface above a reference datum at a specific location,
+      typically measured in feet or meters. Stage measurements are the primary
+      observable used to monitor river and reservoir levels.
+    tags:
+      - Measurement
+      - Hydrology
+
+  - term: Discharge
+    label: Discharge
+    definition: >-
+      The volume of water flowing past a point per unit of time, typically expressed
+      in cubic feet per second (cfs) or cubic meters per second (cms). Also called
+      streamflow or flow.
+    tags:
+      - Measurement
+      - Hydrology
+
+  - term: Office
+    label: USACE District Office
+    definition: >-
+      A three-to-five character code identifying a USACE district or division office
+      that owns and manages specific location and time series data (e.g., SWT for
+      Tulsa District, LRN for Nashville District).
+    tags:
+      - Organization
+      - Administration
+
+  - term: Location Kind
+    label: Location Kind
+    definition: >-
+      A classification of a CWMS location describing its physical type and function.
+      Kinds include SITE, STREAM_LOCATION, PROJECT, TURBINE, EMBANKMENT, LOCK,
+      OUTLET, and OVERFLOW.
+    tags:
+      - Classification
+      - Location
+
+  - term: Vertical Datum
+    label: Vertical Datum
+    definition: >-
+      A reference surface used for measuring elevations. CWMS commonly uses NAVD88
+      (North American Vertical Datum of 1988) and NGVD29 (National Geodetic
+      Vertical Datum of 1929).
+    tags:
+      - Measurement
+      - Geodesy
+
+  - term: Quality Code
+    label: CWMS Quality Code
+    definition: >-
+      A numeric code indicating the quality status of a time series value.
+      Standard values: 0=Unscreened, 1=Good, 3=Questionable, 5=Rejected.
+      Used to flag data that may be erroneous or requires review.
+    tags:
+      - Data Quality
+      - Metadata
+
+  - term: Pool Elevation
+    label: Pool Elevation
+    definition: >-
+      The elevation of the water surface in a reservoir above a reference datum.
+      Normal pool refers to the target operating elevation; flood pool refers to
+      the maximum allowed elevation during flood operations.
+    tags:
+      - Reservoir
+      - Measurement
+
+  - term: Flood Stage
+    label: Flood Stage
+    definition: >-
+      The stage (water level) at which a stream begins to overflow its banks and
+      cause inundation of adjacent areas. USACE uses flood stage thresholds
+      defined as location levels in CWMS.
+    tags:
+      - Flood Management
+      - Safety
+
+  - term: Reservoir Regulation
+    label: Reservoir Regulation
+    definition: >-
+      The planned management of reservoir storage and releases to achieve water
+      control objectives including flood damage reduction, water supply, navigation,
+      hydropower, water quality, and recreation.
+    tags:
+      - Operations
+      - Water Management
+
+  - term: Lock And Dam
+    label: Lock and Dam
+    definition: >-
+      A navigation structure consisting of a dam to maintain water depth and a
+      lock chamber that allows vessels to pass upstream or downstream by raising
+      or lowering the water level within the chamber.
+    tags:
+      - Navigation
+      - Infrastructure
+
+  - term: Forecast Instance
+    label: Forecast Instance
+    definition: >-
+      A single issued hydrological forecast for a specific date, designator, and
+      forecast specification. Contains time series data representing predicted
+      future hydrological conditions.
+    tags:
+      - Forecasting
+      - Hydrology
+
+  - term: CWMS Identifier
+    label: CWMS Time Series Identifier
+    definition: >-
+      The structured six-part name used to uniquely identify a time series in CWMS:
+      Location.Parameter.Type.Interval.Duration.Version
+      (e.g., DALT2.Stage.Inst.15Minutes.0.raw). Each part carries specific meaning
+      about the data's origin, parameter, recording type, and temporal characteristics.
+    tags:
+      - Naming Convention
+      - Data Management

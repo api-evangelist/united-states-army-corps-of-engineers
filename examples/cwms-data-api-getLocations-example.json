@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://cwms-data.usace.army.mil/cwms-data/locations",
+    "query": {
+      "office": "SWT",
+      "names": "DALT2",
+      "unit": "EN",
+      "datum": "NAVD88"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "locations": {
+        "location": [
+          {
+            "name": "DALT2",
+            "office-id": "SWT",
+            "latitude": 35.8742,
+            "longitude": -95.3614,
+            "elevation": 475.5,
+            "horizontal-datum": "NAD83",
+            "vertical-datum": "NAVD88",
+            "elevation-units": "ft",
+            "public-name": "Kerr Dam",
+            "long-name": "Robert S. Kerr Lock and Dam",
+            "description": "Robert S. Kerr Lock and Dam on the Arkansas River",
+            "kind": "PROJECT",
+            "type": "LOCK_AND_DAM",
+            "state-initial": "OK",
+            "county-name": "Sequoyah",
+            "timezone-name": "US/Central",
+            "nation": "US",
+            "nearest-city": "Sallisaw, OK"
+          }
+        ]
+      }
+    }
+  }
+}

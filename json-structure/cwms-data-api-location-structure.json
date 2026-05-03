@@ -1,0 +1,25 @@
+{
+  "title": "CWMS Location Structure",
+  "description": "Structure documentation for USACE CWMS Location objects",
+  "type": "object",
+  "fields": [
+    { "name": "name", "type": "string", "required": true, "description": "CWMS location identifier" },
+    { "name": "office-id", "type": "string", "required": true, "description": "Three-character district office code" },
+    { "name": "latitude", "type": "number", "required": false, "description": "Decimal latitude WGS84" },
+    { "name": "longitude", "type": "number", "required": false, "description": "Decimal longitude WGS84" },
+    { "name": "elevation", "type": "number", "required": false, "description": "Elevation in specified datum" },
+    { "name": "horizontal-datum", "type": "string", "required": false, "description": "Horizontal datum" },
+    { "name": "vertical-datum", "type": "string", "required": false, "description": "Vertical datum" },
+    { "name": "elevation-units", "type": "string", "required": false, "description": "Unit for elevation" },
+    { "name": "public-name", "type": "string", "required": false, "description": "Short public name" },
+    { "name": "long-name", "type": "string", "required": false, "description": "Full descriptive name" },
+    { "name": "description", "type": "string", "required": false, "description": "Text description" },
+    { "name": "kind", "type": "string", "required": false, "description": "CWMS location kind" },
+    { "name": "type", "type": "string", "required": false, "description": "Location type" },
+    { "name": "state-initial", "type": "string", "required": false, "description": "Two-character state abbreviation" },
+    { "name": "county-name", "type": "string", "required": false, "description": "County name" },
+    { "name": "timezone-name", "type": "string", "required": false, "description": "IANA timezone" },
+    { "name": "nation", "type": "string", "required": false, "description": "Nation code" },
+    { "name": "nearest-city", "type": "string", "required": false, "description": "Nearest city" }
+  ]
+}

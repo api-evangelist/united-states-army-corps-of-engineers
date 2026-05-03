@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://cwms-data.usace.army.mil/cwms-data/timeseries",
+    "query": {
+      "name": "DALT2.Stage.Inst.15Minutes.0.raw",
+      "office": "SWT",
+      "begin": "2026-04-01T00:00:00-05:00",
+      "end": "2026-04-02T00:00:00-05:00",
+      "unit": "ft",
+      "datum": "NAVD88",
+      "timezone": "US/Central"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "name": "DALT2.Stage.Inst.15Minutes.0.raw",
+      "office-id": "SWT",
+      "units": "ft",
+      "interval": 15,
+      "interval-offset": 0,
+      "time-zone": "US/Central",
+      "total": 96,
+      "page": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa",
+      "next-page": null,
+      "values": [
+        [1743462000000, 482.35, 0],
+        [1743462900000, 482.37, 0],
+        [1743463800000, 482.38, 0],
+        [1743464700000, 482.40, 0],
+        [1743465600000, 482.41, 0]
+      ]
+    }
+  }
+}

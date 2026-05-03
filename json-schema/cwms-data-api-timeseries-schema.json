@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cwms-data.usace.army.mil/cwms-data/schemas/timeseries",
+  "title": "CWMS Time Series",
+  "description": "A time series dataset from the Corps Water Management System containing measurements at a USACE-managed location.",
+  "type": "object",
+  "required": ["name", "office-id", "units"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The CWMS time series identifier in format Location.Parameter.Type.Interval.Duration.Version"
+    },
+    "office-id": {
+      "type": "string",
+      "description": "Three-character USACE district office code"
+    },
+    "units": {
+      "type": "string",
+      "description": "Measurement units for the data values (e.g., ft, m, cfs, cms)"
+    },
+    "interval": {
+      "type": "integer",
+      "description": "Interval between values in minutes (0 for irregular)"
+    },
+    "interval-offset": {
+      "type": "integer",
+      "description": "Offset from interval boundary in minutes"
+    },
+    "time-zone": {
+      "type": "string",
+      "description": "IANA timezone name for timestamps"
+    },
+    "total": {
+      "type": "integer",
+      "description": "Total number of values available for the query"
+    },
+    "page": {
+      "type": "string",
+      "description": "Current page cursor for pagination"
+    },
+    "next-page": {
+      "type": ["string", "null"],
+      "description": "Next page cursor (null if no more pages)"
+    },
+    "values": {
+      "type": "array",
+      "description": "Array of time series values as [timestamp_ms, value, quality_code] tuples",
+      "items": {
+        "type": "array",
+        "description": "A single time series value: [Unix timestamp in milliseconds, measured value, CWMS quality code]",
+        "prefixItems": [
+          {
+            "type": "integer",
+            "description": "Unix timestamp in milliseconds since epoch"
+          },
+          {
+            "type": ["number", "null"],
+            "description": "The measured value (null if missing or no-data)"
+          },
+          {
+            "type": "integer",
+            "description": "CWMS quality code (0=Unscreened, 1=Good, 3=Questionable, 5=Rejected)"
+          }
+        ],
+        "minItems": 3,
+        "maxItems": 3
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "title": "CWMS Time Series Structure",
+  "description": "Structure documentation for USACE CWMS Time Series objects",
+  "type": "object",
+  "fields": [
+    { "name": "name", "type": "string", "required": true, "description": "Time series identifier (Location.Parameter.Type.Interval.Duration.Version)" },
+    { "name": "office-id", "type": "string", "required": true, "description": "Three-character district office code" },
+    { "name": "units", "type": "string", "required": true, "description": "Measurement units (ft, m, cfs, etc.)" },
+    { "name": "interval", "type": "integer", "required": false, "description": "Data interval in minutes (0=irregular)" },
+    { "name": "interval-offset", "type": "integer", "required": false, "description": "Interval offset in minutes" },
+    { "name": "time-zone", "type": "string", "required": false, "description": "IANA timezone for timestamps" },
+    { "name": "total", "type": "integer", "required": false, "description": "Total values available" },
+    { "name": "page", "type": "string", "required": false, "description": "Current page cursor" },
+    { "name": "next-page", "type": "string", "required": false, "description": "Next page cursor (null if last page)" },
+    {
+      "name": "values",
+      "type": "array",
+      "required": false,
+      "description": "Array of [timestamp_ms, value, quality_code] tuples",
+      "items": {
+        "type": "array",
+        "description": "Single value tuple",
+        "fields": [
+          { "name": "[0]", "type": "integer", "description": "Unix timestamp in milliseconds" },
+          { "name": "[1]", "type": "number", "description": "Measured value (null = missing)" },
+          { "name": "[2]", "type": "integer", "description": "CWMS quality code (0=Unscreened, 1=Good, 3=Questionable, 5=Rejected)" }
+        ]
+      }
+    }
+  ]
+}

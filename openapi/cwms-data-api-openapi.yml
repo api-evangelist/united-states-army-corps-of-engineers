@@ -1,0 +1,1022 @@
+openapi: 3.1.0
+info:
+  title: CWMS Data API
+  description: >-
+    The Corps Water Management System (CWMS) Data API provides a RESTful interface
+    for accessing water management data from the U.S. Army Corps of Engineers.
+    This includes time series data, locations, levels, ratings, forecasts, projects,
+    turbines, gates, and water supply information for USACE-managed water resources
+    across the United States.
+  version: 3.0.0
+  contact:
+    name: USACE CWMS Data API Support
+    url: https://github.com/USACE/cwms-data-api
+  license:
+    name: MIT
+    url: https://github.com/USACE/cwms-data-api/blob/develop/LICENSE.md
+  x-tags:
+    - Water Management
+    - Federal Government
+    - Hydrology
+    - Engineering
+servers:
+  - url: https://cwms-data.usace.army.mil/cwms-data
+    description: Production CWMS Data API
+  - url: https://water.usace.army.mil/cwms-data
+    description: Water Data Platform
+
+tags:
+  - name: Catalog
+    description: Browse available data in the CWMS catalog
+  - name: Locations
+    description: USACE location data including dams, reservoirs, streamgages, and sites
+  - name: Time Series
+    description: Time series data retrieval and management
+  - name: Levels
+    description: Location levels and stage-discharge relationships
+  - name: Ratings
+    description: Rating tables for converting between measured values
+  - name: Forecasts
+    description: Forecast instances and specifications
+  - name: Projects
+    description: USACE project management including locks, gates, turbines, and outlets
+  - name: Basins
+    description: River basin information
+  - name: Parameters
+    description: Physical parameters and units
+  - name: Version
+    description: API version information
+
+paths:
+  /:
+    get:
+      operationId: getApiRoot
+      summary: Get API Root
+      description: Returns a welcome message confirming the API is available.
+      tags:
+        - Version
+      responses:
+        '200':
+          description: API root welcome message
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /catalog/{datastore-type}:
+    get:
+      operationId: getCatalog
+      summary: Get Catalog
+      description: >-
+        Returns a catalog of available time series, locations, or other data
+        stored in CWMS. Use this endpoint to discover available data.
+      tags:
+        - Catalog
+      parameters:
+        - name: datastore-type
+          in: path
+          required: true
+          description: The type of data to catalog (TIMESERIES, LOCATIONS, RATINGS, etc.)
+          schema:
+            type: string
+            enum:
+              - TIMESERIES
+              - LOCATIONS
+              - RATINGS
+        - name: page
+          in: query
+          required: false
+          description: Pagination cursor from a previous response
+          schema:
+            type: string
+        - name: page-size
+          in: query
+          required: false
+          description: Number of results to return per page (max 500)
+          schema:
+            type: integer
+            default: 500
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code (e.g., SWT, LRN)
+          schema:
+            type: string
+        - name: like
+          in: query
+          required: false
+          description: Filter results using a CWMS wildcard pattern
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Catalog results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /locations:
+    get:
+      operationId: getLocations
+      summary: Get Locations
+      description: >-
+        Returns location data for USACE-managed sites including dams, reservoirs,
+        stream gages, and other water resource facilities.
+      tags:
+        - Locations
+      parameters:
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code
+          schema:
+            type: string
+        - name: names
+          in: query
+          required: false
+          description: Comma-separated list of location names (supports CWMS wildcards)
+          schema:
+            type: string
+        - name: unit
+          in: query
+          required: false
+          description: Measurement unit system (EN for English, SI for metric)
+          schema:
+            type: string
+            enum:
+              - EN
+              - SI
+        - name: datum
+          in: query
+          required: false
+          description: Vertical datum for elevation values (NAVD88, NGVD29, etc.)
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: false
+          description: Response format
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+              - tab
+              - csv
+      responses:
+        '200':
+          description: Location data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    post:
+      operationId: createLocation
+      summary: Create Location
+      description: Creates a new location record in CWMS. Requires authentication.
+      tags:
+        - Locations
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '200':
+          description: Location created successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /locations/{location-id}:
+    get:
+      operationId: getLocation
+      summary: Get Location
+      description: Returns data for a specific USACE location.
+      tags:
+        - Locations
+      parameters:
+        - name: location-id
+          in: path
+          required: true
+          description: The CWMS location identifier
+          schema:
+            type: string
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code
+          schema:
+            type: string
+        - name: unit
+          in: query
+          required: false
+          description: Measurement unit system (EN or SI)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Location data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateLocation
+      summary: Update Location
+      description: Updates an existing location record. Requires authentication.
+      tags:
+        - Locations
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: location-id
+          in: path
+          required: true
+          description: The CWMS location identifier
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '200':
+          description: Location updated successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteLocation
+      summary: Delete Location
+      description: Deletes a location record. Requires authentication.
+      tags:
+        - Locations
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: location-id
+          in: path
+          required: true
+          description: The CWMS location identifier
+          schema:
+            type: string
+        - name: office
+          in: query
+          required: true
+          description: Three-character USACE district office code
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Location deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /timeseries:
+    get:
+      operationId: getTimeSeries
+      summary: Get Time Series
+      description: >-
+        Returns time series data for a specified time window. Time series data
+        includes measurements such as river stage, flow, precipitation, temperature,
+        and reservoir pool elevation over time.
+      tags:
+        - Time Series
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: >-
+            The time series identifier in CWMS format
+            (e.g., DALT2.Stage.Inst.15Minutes.0.raw)
+          schema:
+            type: string
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code
+          schema:
+            type: string
+        - name: unit
+          in: query
+          required: false
+          description: Measurement unit for the returned data
+          schema:
+            type: string
+        - name: datum
+          in: query
+          required: false
+          description: Vertical datum for elevation values
+          schema:
+            type: string
+        - name: begin
+          in: query
+          required: false
+          description: Start of time window in ISO 8601 format or milliseconds since epoch
+          schema:
+            type: string
+        - name: end
+          in: query
+          required: false
+          description: End of time window in ISO 8601 format or milliseconds since epoch
+          schema:
+            type: string
+        - name: timezone
+          in: query
+          required: false
+          description: Timezone for interpreting date/time values
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: false
+          description: Response format
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+              - tab
+              - csv
+        - name: page
+          in: query
+          required: false
+          description: Pagination cursor from a previous response
+          schema:
+            type: string
+        - name: page-size
+          in: query
+          required: false
+          description: Number of time series values per page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Time series data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeSeries'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /timeseries/recent:
+    get:
+      operationId: getRecentTimeSeries
+      summary: Get Recent Time Series
+      description: >-
+        Returns the most recent time series values. Useful for displaying
+        current conditions at USACE locations.
+      tags:
+        - Time Series
+      parameters:
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: false
+          description: Time series identifier (supports CWMS wildcards)
+          schema:
+            type: string
+        - name: recently-changed-within
+          in: query
+          required: false
+          description: ISO 8601 duration for how recently the data was updated (e.g., PT2H for 2 hours)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Recent time series data
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /timeseries/filtered:
+    get:
+      operationId: getFilteredTimeSeries
+      summary: Get Filtered Time Series
+      description: Returns filtered time series data based on specified criteria.
+      tags:
+        - Time Series
+      parameters:
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: false
+          description: Time series identifier (supports CWMS wildcards)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Filtered time series data
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /levels/{level-id}/timeseries:
+    get:
+      operationId: getLevelTimeSeries
+      summary: Get Level Time Series
+      description: Returns time series for a specified location level.
+      tags:
+        - Levels
+      parameters:
+        - name: level-id
+          in: path
+          required: true
+          description: The location level identifier
+          schema:
+            type: string
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code
+          schema:
+            type: string
+        - name: begin
+          in: query
+          required: false
+          description: Start of time window in ISO 8601 format
+          schema:
+            type: string
+        - name: end
+          in: query
+          required: false
+          description: End of time window in ISO 8601 format
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Level time series data
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /levels:
+    get:
+      operationId: getLevels
+      summary: Get Levels
+      description: Returns location levels (flood stage, normal pool, etc.) for USACE locations.
+      tags:
+        - Levels
+      parameters:
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code
+          schema:
+            type: string
+        - name: location-id
+          in: query
+          required: false
+          description: Location identifier (supports wildcards)
+          schema:
+            type: string
+        - name: begin
+          in: query
+          required: false
+          description: Start of effective date range
+          schema:
+            type: string
+        - name: end
+          in: query
+          required: false
+          description: End of effective date range
+          schema:
+            type: string
+        - name: unit
+          in: query
+          required: false
+          description: Measurement unit system (EN or SI)
+          schema:
+            type: string
+        - name: datum
+          in: query
+          required: false
+          description: Vertical datum for elevation values
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: Pagination cursor
+          schema:
+            type: string
+        - name: page-size
+          in: query
+          required: false
+          description: Number of results per page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Location levels data
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /ratings:
+    get:
+      operationId: getRatings
+      summary: Get Ratings
+      description: >-
+        Returns rating tables used to convert between measured values
+        (e.g., stage to flow, gate opening to discharge).
+      tags:
+        - Ratings
+      parameters:
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code
+          schema:
+            type: string
+        - name: rating-id
+          in: query
+          required: false
+          description: Rating identifier (supports CWMS wildcards)
+          schema:
+            type: string
+        - name: start
+          in: query
+          required: false
+          description: Start of effective date range
+          schema:
+            type: string
+        - name: end
+          in: query
+          required: false
+          description: End of effective date range
+          schema:
+            type: string
+        - name: timezone
+          in: query
+          required: false
+          description: Timezone for date/time values
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: false
+          description: Response format
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Rating tables
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /basins:
+    get:
+      operationId: getBasins
+      summary: Get Basins
+      description: Returns river basin information for USACE water management areas.
+      tags:
+        - Basins
+      parameters:
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code
+          schema:
+            type: string
+        - name: basin-id
+          in: query
+          required: false
+          description: Basin identifier (supports wildcards)
+          schema:
+            type: string
+        - name: unit
+          in: query
+          required: false
+          description: Measurement unit system (EN or SI)
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: Pagination cursor
+          schema:
+            type: string
+        - name: page-size
+          in: query
+          required: false
+          description: Number of results per page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Basin data
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /forecast-spec:
+    get:
+      operationId: getForecastSpecs
+      summary: Get Forecast Specifications
+      description: Returns forecast specifications available in the CWMS system.
+      tags:
+        - Forecasts
+      parameters:
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code
+          schema:
+            type: string
+        - name: spec-id-mask
+          in: query
+          required: false
+          description: Mask for filtering forecast spec IDs (supports wildcards)
+          schema:
+            type: string
+        - name: designator-mask
+          in: query
+          required: false
+          description: Mask for filtering designators
+          schema:
+            type: string
+        - name: location-mask
+          in: query
+          required: false
+          description: Mask for filtering locations
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Forecast specifications
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /forecast-instance:
+    get:
+      operationId: getForecastInstances
+      summary: Get Forecast Instances
+      description: Returns forecast instances with time series data.
+      tags:
+        - Forecasts
+      parameters:
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: false
+          description: Forecast spec name
+          schema:
+            type: string
+        - name: designator
+          in: query
+          required: false
+          description: Forecast designator
+          schema:
+            type: string
+        - name: forecast-date
+          in: query
+          required: false
+          description: Forecast issue date in ISO 8601 format
+          schema:
+            type: string
+        - name: issue-date
+          in: query
+          required: false
+          description: Date forecast was issued in ISO 8601 format
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Forecast instance data
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /projects:
+    get:
+      operationId: getProjects
+      summary: Get Projects
+      description: Returns USACE water resource projects (dams, locks, reservoirs).
+      tags:
+        - Projects
+      parameters:
+        - name: office
+          in: query
+          required: false
+          description: Three-character USACE district office code
+          schema:
+            type: string
+        - name: id-mask
+          in: query
+          required: false
+          description: Project ID mask (supports wildcards)
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: Pagination cursor
+          schema:
+            type: string
+        - name: page-size
+          in: query
+          required: false
+          description: Number of results per page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Project data
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /parameters:
+    get:
+      operationId: getParameters
+      summary: Get Parameters
+      description: >-
+        Returns the list of physical parameters available in the CWMS system
+        (e.g., Stage, Flow, Precip, Temp).
+      tags:
+        - Parameters
+      responses:
+        '200':
+          description: List of CWMS parameters
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /units:
+    get:
+      operationId: getUnits
+      summary: Get Units
+      description: Returns the list of measurement units available in the CWMS system.
+      tags:
+        - Parameters
+      parameters:
+        - name: format
+          in: query
+          required: false
+          description: Response format
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of measurement units
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /version:
+    get:
+      operationId: getVersion
+      summary: Get API Version
+      description: Returns the current version of the CWMS Data API.
+      tags:
+        - Version
+      responses:
+        '200':
+          description: API version information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    description: The API version string
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        JWT Bearer token for authenticated operations (create, update, delete).
+        Obtain a token from the CWMS authorization endpoint.
+
+  responses:
+    BadRequest:
+      description: Bad request — invalid parameters or missing required fields
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+        status:
+          type: integer
+          description: HTTP status code
+
+    CatalogEntry:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The identifier for this catalog entry
+        office:
+          type: string
+          description: The owning USACE district office code
+        units:
+          type: string
+          description: Measurement units
+
+    CatalogResponse:
+      type: object
+      properties:
+        page:
+          type: string
+          description: Current page cursor
+        next-page:
+          type: string
+          description: Next page cursor (absent if no more pages)
+        total:
+          type: integer
+          description: Total number of entries matching the query
+        page-size:
+          type: integer
+          description: Number of entries in this response
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogEntry'
+
+    Location:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The CWMS location identifier
+        office-id:
+          type: string
+          description: Three-character USACE district office code
+        latitude:
+          type: number
+          format: double
+          description: Decimal latitude (WGS84)
+        longitude:
+          type: number
+          format: double
+          description: Decimal longitude (WGS84)
+        elevation:
+          type: number
+          format: double
+          description: Elevation in the specified datum and unit
+        horizontal-datum:
+          type: string
+          description: Horizontal datum (e.g., WGS84, NAD83)
+        vertical-datum:
+          type: string
+          description: Vertical datum (e.g., NAVD88, NGVD29)
+        elevation-units:
+          type: string
+          description: Unit of elevation measurement
+        public-name:
+          type: string
+          description: Public-facing name of the location
+        long-name:
+          type: string
+          description: Long descriptive name
+        description:
+          type: string
+          description: Description of the location
+        kind:
+          type: string
+          description: Location kind (SITE, STREAM_LOCATION, PROJECT, etc.)
+        type:
+          type: string
+          description: Location type
+        state-initial:
+          type: string
+          description: Two-character U.S. state abbreviation
+        county-name:
+          type: string
+          description: County name
+        timezone-name:
+          type: string
+          description: IANA timezone name
+        nation:
+          type: string
+          description: Nation code (e.g., US)
+        nearest-city:
+          type: string
+          description: Nearest city name
+
+    LocationsResponse:
+      type: object
+      properties:
+        locations:
+          type: object
+          properties:
+            location:
+              type: array
+              items:
+                $ref: '#/components/schemas/Location'
+
+    TimeSeriesValue:
+      type: array
+      description: >-
+        An array of [timestamp (ms since epoch), value, quality code] tuples
+      items:
+        type: number
+
+    TimeSeries:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The time series identifier
+        office-id:
+          type: string
+          description: Owning USACE district office code
+        units:
+          type: string
+          description: Measurement units
+        interval:
+          type: integer
+          description: Data interval in minutes (0 for irregular)
+        interval-offset:
+          type: integer
+          description: Interval offset in minutes
+        time-zone:
+          type: string
+          description: Timezone for the time series
+        values:
+          type: array
+          description: Array of [timestamp, value, quality] tuples
+          items:
+            $ref: '#/components/schemas/TimeSeriesValue'
+        total:
+          type: integer
+          description: Total number of values available
+        page:
+          type: string
+          description: Current page cursor
+        next-page:
+          type: string
+          description: Next page cursor

@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://cwms-data.usace.army.mil/cwms-data/catalog/TIMESERIES",
+    "query": {
+      "office": "SWT",
+      "like": "*.Stage.*",
+      "page-size": 10
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "page": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa",
+      "next-page": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAb",
+      "total": 1247,
+      "page-size": 10,
+      "entries": [
+        {
+          "name": "BIGE2.Stage.Inst.15Minutes.0.raw",
+          "office": "SWT",
+          "units": "ft"
+        },
+        {
+          "name": "DALT2.Stage.Inst.15Minutes.0.raw",
+          "office": "SWT",
+          "units": "ft"
+        },
+        {
+          "name": "EATK2.Stage.Inst.15Minutes.0.raw",
+          "office": "SWT",
+          "units": "ft"
+        }
+      ]
+    }
+  }
+}

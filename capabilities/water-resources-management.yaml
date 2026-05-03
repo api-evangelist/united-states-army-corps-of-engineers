@@ -1,0 +1,338 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "USACE Water Resources Management"
+  description: >-
+    Unified workflow capability for accessing U.S. Army Corps of Engineers water
+    resource data. Combines location discovery, real-time time series measurements,
+    hydrological forecasts, and project information for water management, flood
+    monitoring, and operational decision support.
+  tags:
+    - Water Management
+    - Hydrology
+    - Federal Government
+    - USACE
+    - Flood Monitoring
+    - Dam Operations
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      CWMS_API_TOKEN: CWMS_API_TOKEN
+
+capability:
+  consumes:
+    - import: cwms
+      location: ./shared/cwms-data-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: usace-water-resources-api
+      description: "Unified REST API for USACE water resources management and monitoring."
+      resources:
+        - path: /v1/catalog
+          name: catalog
+          description: "Browse available CWMS water data catalog"
+          operations:
+            - method: GET
+              name: get-catalog
+              description: "Browse available time series, locations, or ratings in CWMS"
+              call: "cwms.get-catalog"
+              with:
+                datastore-type: "rest.datastore-type"
+                office: "rest.office"
+                like: "rest.like"
+                page-size: "rest.page-size"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/locations
+          name: locations
+          description: "USACE-managed location data"
+          operations:
+            - method: GET
+              name: get-locations
+              description: "Get all USACE locations filtered by office or name pattern"
+              call: "cwms.get-locations"
+              with:
+                office: "rest.office"
+                names: "rest.names"
+                unit: "rest.unit"
+                datum: "rest.datum"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/locations/{location-id}
+          name: location
+          description: "Single USACE location"
+          operations:
+            - method: GET
+              name: get-location
+              description: "Get detailed data for a specific USACE location"
+              call: "cwms.get-location"
+              with:
+                location-id: "rest.location-id"
+                office: "rest.office"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/timeseries
+          name: timeseries
+          description: "CWMS time series measurements"
+          operations:
+            - method: GET
+              name: get-timeseries
+              description: "Get time series data for a location (stage, flow, elevation, etc.)"
+              call: "cwms.get-timeseries"
+              with:
+                name: "rest.name"
+                office: "rest.office"
+                begin: "rest.begin"
+                end: "rest.end"
+                unit: "rest.unit"
+                timezone: "rest.timezone"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/timeseries/recent
+          name: recent-conditions
+          description: "Current water conditions"
+          operations:
+            - method: GET
+              name: get-recent-timeseries
+              description: "Get the most recent readings for current conditions monitoring"
+              call: "cwms.get-recent-timeseries"
+              with:
+                office: "rest.office"
+                name: "rest.name"
+                recently-changed-within: "rest.recently-changed-within"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/levels
+          name: levels
+          description: "Location levels (flood stage, normal pool)"
+          operations:
+            - method: GET
+              name: get-levels
+              description: "Get location levels for flood stage and pool elevation thresholds"
+              call: "cwms.get-levels"
+              with:
+                office: "rest.office"
+                location-id: "rest.location-id"
+                unit: "rest.unit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/ratings
+          name: ratings
+          description: "Stage-discharge rating tables"
+          operations:
+            - method: GET
+              name: get-ratings
+              description: "Get rating tables for converting stage to flow"
+              call: "cwms.get-ratings"
+              with:
+                office: "rest.office"
+                rating-id: "rest.rating-id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/forecasts
+          name: forecasts
+          description: "Hydrological forecasts"
+          operations:
+            - method: GET
+              name: get-forecast-instances
+              description: "Get hydrological forecast instances"
+              call: "cwms.get-forecast-instances"
+              with:
+                office: "rest.office"
+                name: "rest.name"
+                forecast-date: "rest.forecast-date"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/projects
+          name: projects
+          description: "USACE water resource projects"
+          operations:
+            - method: GET
+              name: get-projects
+              description: "Get USACE projects including dams, locks, and reservoirs"
+              call: "cwms.get-projects"
+              with:
+                office: "rest.office"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/basins
+          name: basins
+          description: "River basin information"
+          operations:
+            - method: GET
+              name: get-basins
+              description: "Get river basin information for USACE water management areas"
+              call: "cwms.get-basins"
+              with:
+                office: "rest.office"
+                basin-id: "rest.basin-id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: usace-water-resources-mcp
+      transport: http
+      description: "MCP server for AI-assisted USACE water resources monitoring and analysis."
+      tools:
+        - name: browse-water-data-catalog
+          description: "Browse the CWMS data catalog to discover available time series, locations, and ratings for USACE water resources"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-catalog"
+          with:
+            datastore-type: "tools.datastore-type"
+            office: "tools.office"
+            like: "tools.like"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: search-usace-locations
+          description: "Search for USACE-managed locations (dams, reservoirs, stream gages) by name, office, or region"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-locations"
+          with:
+            office: "tools.office"
+            names: "tools.names"
+            unit: "tools.unit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-location-details
+          description: "Get detailed information for a specific USACE location including coordinates, elevation, and type"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-location"
+          with:
+            location-id: "tools.location-id"
+            office: "tools.office"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-water-measurements
+          description: "Get time series measurements (stage, streamflow, reservoir elevation, precipitation) for a USACE location over a time period"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-timeseries"
+          with:
+            name: "tools.name"
+            office: "tools.office"
+            begin: "tools.begin"
+            end: "tools.end"
+            unit: "tools.unit"
+            timezone: "tools.timezone"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-current-water-conditions
+          description: "Get the most recent real-time water condition readings for USACE monitoring stations"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-recent-timeseries"
+          with:
+            office: "tools.office"
+            name: "tools.name"
+            recently-changed-within: "tools.recently-changed-within"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-flood-stage-levels
+          description: "Get flood stage thresholds and normal pool levels for USACE locations"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-levels"
+          with:
+            office: "tools.office"
+            location-id: "tools.location-id"
+            unit: "tools.unit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-stage-discharge-ratings
+          description: "Get rating curves that convert stage height to streamflow discharge at USACE gages"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-ratings"
+          with:
+            office: "tools.office"
+            rating-id: "tools.rating-id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-hydrological-forecasts
+          description: "Get hydrological forecasts for USACE project areas including flood predictions and reservoir operations"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-forecast-instances"
+          with:
+            office: "tools.office"
+            name: "tools.name"
+            forecast-date: "tools.forecast-date"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-usace-projects
+          description: "Get information about USACE water resource projects including dams, locks, reservoirs, and flood control structures"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-projects"
+          with:
+            office: "tools.office"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-river-basins
+          description: "Get river basin information for USACE water management regions"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "cwms.get-basins"
+          with:
+            office: "tools.office"
+            basin-id: "tools.basin-id"
+          outputParameters:
+            - type: object
+              mapping: "$."
