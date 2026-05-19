@@ -1,0 +1,102 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CWMS Data API — Version
+  description: 'CWMS Data API — Version. 2 operations. Lead operation: Get API Root. Self-contained Naftiko capability covering
+    one United States Army Corps Of Engineers business surface.'
+  tags:
+  - United States Army Corps Of Engineers
+  - Version
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY: UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cwms-data-version
+    baseUri: https://cwms-data.usace.army.mil/cwms-data
+    description: CWMS Data API — Version business capability. Self-contained, no shared references.
+    resources:
+    - name: root
+      path: /
+      operations:
+      - name: getapiroot
+        method: GET
+        description: Get API Root
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: version
+      path: /version
+      operations:
+      - name: getversion
+        method: GET
+        description: Get API Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cwms-data-version-rest
+    port: 8080
+    description: REST adapter for CWMS Data API — Version. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1
+      name: root
+      description: REST surface for root.
+      operations:
+      - method: GET
+        name: getapiroot
+        description: Get API Root
+        call: cwms-data-version.getapiroot
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/version
+      name: version
+      description: REST surface for version.
+      operations:
+      - method: GET
+        name: getversion
+        description: Get API Version
+        call: cwms-data-version.getversion
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cwms-data-version-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CWMS Data API — Version. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-api-root
+      description: Get API Root
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cwms-data-version.getapiroot
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-api-version
+      description: Get API Version
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cwms-data-version.getversion
+      outputParameters:
+      - type: object
+        mapping: $.

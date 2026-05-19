@@ -1,0 +1,109 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CWMS Data API — Ratings
+  description: 'CWMS Data API — Ratings. 1 operations. Lead operation: Get Ratings. Self-contained Naftiko capability covering
+    one United States Army Corps Of Engineers business surface.'
+  tags:
+  - United States Army Corps Of Engineers
+  - Ratings
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY: UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cwms-data-ratings
+    baseUri: https://cwms-data.usace.army.mil/cwms-data
+    description: CWMS Data API — Ratings business capability. Self-contained, no shared references.
+    resources:
+    - name: ratings
+      path: /ratings
+      operations:
+      - name: getratings
+        method: GET
+        description: Get Ratings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: office
+          in: query
+          type: string
+          description: Three-character USACE district office code
+        - name: rating-id
+          in: query
+          type: string
+          description: Rating identifier (supports CWMS wildcards)
+        - name: start
+          in: query
+          type: string
+          description: Start of effective date range
+        - name: end
+          in: query
+          type: string
+          description: End of effective date range
+        - name: timezone
+          in: query
+          type: string
+          description: Timezone for date/time values
+        - name: format
+          in: query
+          type: string
+          description: Response format
+    authentication:
+      type: bearer
+      token: '{{env.UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cwms-data-ratings-rest
+    port: 8080
+    description: REST adapter for CWMS Data API — Ratings. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/ratings
+      name: ratings
+      description: REST surface for ratings.
+      operations:
+      - method: GET
+        name: getratings
+        description: Get Ratings
+        call: cwms-data-ratings.getratings
+        with:
+          office: rest.office
+          rating-id: rest.rating-id
+          start: rest.start
+          end: rest.end
+          timezone: rest.timezone
+          format: rest.format
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cwms-data-ratings-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CWMS Data API — Ratings. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-ratings
+      description: Get Ratings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cwms-data-ratings.getratings
+      with:
+        office: tools.office
+        rating-id: tools.rating-id
+        start: tools.start
+        end: tools.end
+        timezone: tools.timezone
+        format: tools.format
+      outputParameters:
+      - type: object
+        mapping: $.

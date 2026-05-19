@@ -1,0 +1,97 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CWMS Data API — Projects
+  description: 'CWMS Data API — Projects. 1 operations. Lead operation: Get Projects. Self-contained Naftiko capability covering
+    one United States Army Corps Of Engineers business surface.'
+  tags:
+  - United States Army Corps Of Engineers
+  - Projects
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY: UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cwms-data-projects
+    baseUri: https://cwms-data.usace.army.mil/cwms-data
+    description: CWMS Data API — Projects business capability. Self-contained, no shared references.
+    resources:
+    - name: projects
+      path: /projects
+      operations:
+      - name: getprojects
+        method: GET
+        description: Get Projects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: office
+          in: query
+          type: string
+          description: Three-character USACE district office code
+        - name: id-mask
+          in: query
+          type: string
+          description: Project ID mask (supports wildcards)
+        - name: page
+          in: query
+          type: string
+          description: Pagination cursor
+        - name: page-size
+          in: query
+          type: integer
+          description: Number of results per page
+    authentication:
+      type: bearer
+      token: '{{env.UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cwms-data-projects-rest
+    port: 8080
+    description: REST adapter for CWMS Data API — Projects. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/projects
+      name: projects
+      description: REST surface for projects.
+      operations:
+      - method: GET
+        name: getprojects
+        description: Get Projects
+        call: cwms-data-projects.getprojects
+        with:
+          office: rest.office
+          id-mask: rest.id-mask
+          page: rest.page
+          page-size: rest.page-size
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cwms-data-projects-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CWMS Data API — Projects. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-projects
+      description: Get Projects
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cwms-data-projects.getprojects
+      with:
+        office: tools.office
+        id-mask: tools.id-mask
+        page: tools.page
+        page-size: tools.page-size
+      outputParameters:
+      - type: object
+        mapping: $.

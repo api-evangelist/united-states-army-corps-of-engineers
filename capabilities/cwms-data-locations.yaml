@@ -1,0 +1,276 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CWMS Data API — Locations
+  description: 'CWMS Data API — Locations. 5 operations. Lead operation: Get Locations. Self-contained Naftiko capability
+    covering one United States Army Corps Of Engineers business surface.'
+  tags:
+  - United States Army Corps Of Engineers
+  - Locations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY: UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cwms-data-locations
+    baseUri: https://cwms-data.usace.army.mil/cwms-data
+    description: CWMS Data API — Locations business capability. Self-contained, no shared references.
+    resources:
+    - name: locations
+      path: /locations
+      operations:
+      - name: getlocations
+        method: GET
+        description: Get Locations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: office
+          in: query
+          type: string
+          description: Three-character USACE district office code
+        - name: names
+          in: query
+          type: string
+          description: Comma-separated list of location names (supports CWMS wildcards)
+        - name: unit
+          in: query
+          type: string
+          description: Measurement unit system (EN for English, SI for metric)
+        - name: datum
+          in: query
+          type: string
+          description: Vertical datum for elevation values (NAVD88, NGVD29, etc.)
+        - name: format
+          in: query
+          type: string
+          description: Response format
+      - name: createlocation
+        method: POST
+        description: Create Location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: locations-location-id
+      path: /locations/{location-id}
+      operations:
+      - name: getlocation
+        method: GET
+        description: Get Location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: location-id
+          in: path
+          type: string
+          description: The CWMS location identifier
+          required: true
+        - name: office
+          in: query
+          type: string
+          description: Three-character USACE district office code
+        - name: unit
+          in: query
+          type: string
+          description: Measurement unit system (EN or SI)
+      - name: updatelocation
+        method: PATCH
+        description: Update Location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: location-id
+          in: path
+          type: string
+          description: The CWMS location identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletelocation
+        method: DELETE
+        description: Delete Location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: location-id
+          in: path
+          type: string
+          description: The CWMS location identifier
+          required: true
+        - name: office
+          in: query
+          type: string
+          description: Three-character USACE district office code
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cwms-data-locations-rest
+    port: 8080
+    description: REST adapter for CWMS Data API — Locations. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/locations
+      name: locations
+      description: REST surface for locations.
+      operations:
+      - method: GET
+        name: getlocations
+        description: Get Locations
+        call: cwms-data-locations.getlocations
+        with:
+          office: rest.office
+          names: rest.names
+          unit: rest.unit
+          datum: rest.datum
+          format: rest.format
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createlocation
+        description: Create Location
+        call: cwms-data-locations.createlocation
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/locations/{location-id}
+      name: locations-location-id
+      description: REST surface for locations-location-id.
+      operations:
+      - method: GET
+        name: getlocation
+        description: Get Location
+        call: cwms-data-locations.getlocation
+        with:
+          location-id: rest.location-id
+          office: rest.office
+          unit: rest.unit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatelocation
+        description: Update Location
+        call: cwms-data-locations.updatelocation
+        with:
+          location-id: rest.location-id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletelocation
+        description: Delete Location
+        call: cwms-data-locations.deletelocation
+        with:
+          location-id: rest.location-id
+          office: rest.office
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cwms-data-locations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CWMS Data API — Locations. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-locations
+      description: Get Locations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cwms-data-locations.getlocations
+      with:
+        office: tools.office
+        names: tools.names
+        unit: tools.unit
+        datum: tools.datum
+        format: tools.format
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-location
+      description: Create Location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cwms-data-locations.createlocation
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-location
+      description: Get Location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cwms-data-locations.getlocation
+      with:
+        location-id: tools.location-id
+        office: tools.office
+        unit: tools.unit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-location
+      description: Update Location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: cwms-data-locations.updatelocation
+      with:
+        location-id: tools.location-id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-location
+      description: Delete Location
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: cwms-data-locations.deletelocation
+      with:
+        location-id: tools.location-id
+        office: tools.office
+      outputParameters:
+      - type: object
+        mapping: $.

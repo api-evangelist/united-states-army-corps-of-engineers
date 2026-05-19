@@ -1,0 +1,104 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CWMS Data API — Catalog
+  description: 'CWMS Data API — Catalog. 1 operations. Lead operation: Get Catalog. Self-contained Naftiko capability covering
+    one United States Army Corps Of Engineers business surface.'
+  tags:
+  - United States Army Corps Of Engineers
+  - Catalog
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY: UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cwms-data-catalog
+    baseUri: https://cwms-data.usace.army.mil/cwms-data
+    description: CWMS Data API — Catalog business capability. Self-contained, no shared references.
+    resources:
+    - name: catalog-datastore-type
+      path: /catalog/{datastore-type}
+      operations:
+      - name: getcatalog
+        method: GET
+        description: Get Catalog
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: datastore-type
+          in: path
+          type: string
+          description: The type of data to catalog (TIMESERIES, LOCATIONS, RATINGS, etc.)
+          required: true
+        - name: page
+          in: query
+          type: string
+          description: Pagination cursor from a previous response
+        - name: page-size
+          in: query
+          type: integer
+          description: Number of results to return per page (max 500)
+        - name: office
+          in: query
+          type: string
+          description: Three-character USACE district office code (e.g., SWT, LRN)
+        - name: like
+          in: query
+          type: string
+          description: Filter results using a CWMS wildcard pattern
+    authentication:
+      type: bearer
+      token: '{{env.UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cwms-data-catalog-rest
+    port: 8080
+    description: REST adapter for CWMS Data API — Catalog. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/catalog/{datastore-type}
+      name: catalog-datastore-type
+      description: REST surface for catalog-datastore-type.
+      operations:
+      - method: GET
+        name: getcatalog
+        description: Get Catalog
+        call: cwms-data-catalog.getcatalog
+        with:
+          datastore-type: rest.datastore-type
+          page: rest.page
+          page-size: rest.page-size
+          office: rest.office
+          like: rest.like
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cwms-data-catalog-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CWMS Data API — Catalog. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-catalog
+      description: Get Catalog
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cwms-data-catalog.getcatalog
+      with:
+        datastore-type: tools.datastore-type
+        page: tools.page
+        page-size: tools.page-size
+        office: tools.office
+        like: tools.like
+      outputParameters:
+      - type: object
+        mapping: $.

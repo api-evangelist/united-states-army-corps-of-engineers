@@ -1,0 +1,162 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CWMS Data API — Forecasts
+  description: 'CWMS Data API — Forecasts. 2 operations. Lead operation: Get Forecast Instances. Self-contained Naftiko capability
+    covering one United States Army Corps Of Engineers business surface.'
+  tags:
+  - United States Army Corps Of Engineers
+  - Forecasts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY: UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cwms-data-forecasts
+    baseUri: https://cwms-data.usace.army.mil/cwms-data
+    description: CWMS Data API — Forecasts business capability. Self-contained, no shared references.
+    resources:
+    - name: forecast-instance
+      path: /forecast-instance
+      operations:
+      - name: getforecastinstances
+        method: GET
+        description: Get Forecast Instances
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: office
+          in: query
+          type: string
+          description: Three-character USACE district office code
+        - name: name
+          in: query
+          type: string
+          description: Forecast spec name
+        - name: designator
+          in: query
+          type: string
+          description: Forecast designator
+        - name: forecast-date
+          in: query
+          type: string
+          description: Forecast issue date in ISO 8601 format
+        - name: issue-date
+          in: query
+          type: string
+          description: Date forecast was issued in ISO 8601 format
+    - name: forecast-spec
+      path: /forecast-spec
+      operations:
+      - name: getforecastspecs
+        method: GET
+        description: Get Forecast Specifications
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: office
+          in: query
+          type: string
+          description: Three-character USACE district office code
+        - name: spec-id-mask
+          in: query
+          type: string
+          description: Mask for filtering forecast spec IDs (supports wildcards)
+        - name: designator-mask
+          in: query
+          type: string
+          description: Mask for filtering designators
+        - name: location-mask
+          in: query
+          type: string
+          description: Mask for filtering locations
+    authentication:
+      type: bearer
+      token: '{{env.UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cwms-data-forecasts-rest
+    port: 8080
+    description: REST adapter for CWMS Data API — Forecasts. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/forecast-instance
+      name: forecast-instance
+      description: REST surface for forecast-instance.
+      operations:
+      - method: GET
+        name: getforecastinstances
+        description: Get Forecast Instances
+        call: cwms-data-forecasts.getforecastinstances
+        with:
+          office: rest.office
+          name: rest.name
+          designator: rest.designator
+          forecast-date: rest.forecast-date
+          issue-date: rest.issue-date
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/forecast-spec
+      name: forecast-spec
+      description: REST surface for forecast-spec.
+      operations:
+      - method: GET
+        name: getforecastspecs
+        description: Get Forecast Specifications
+        call: cwms-data-forecasts.getforecastspecs
+        with:
+          office: rest.office
+          spec-id-mask: rest.spec-id-mask
+          designator-mask: rest.designator-mask
+          location-mask: rest.location-mask
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cwms-data-forecasts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CWMS Data API — Forecasts. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-forecast-instances
+      description: Get Forecast Instances
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cwms-data-forecasts.getforecastinstances
+      with:
+        office: tools.office
+        name: tools.name
+        designator: tools.designator
+        forecast-date: tools.forecast-date
+        issue-date: tools.issue-date
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-forecast-specifications
+      description: Get Forecast Specifications
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cwms-data-forecasts.getforecastspecs
+      with:
+        office: tools.office
+        spec-id-mask: tools.spec-id-mask
+        designator-mask: tools.designator-mask
+        location-mask: tools.location-mask
+      outputParameters:
+      - type: object
+        mapping: $.

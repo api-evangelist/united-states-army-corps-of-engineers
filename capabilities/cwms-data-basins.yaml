@@ -1,0 +1,103 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CWMS Data API — Basins
+  description: 'CWMS Data API — Basins. 1 operations. Lead operation: Get Basins. Self-contained Naftiko capability covering
+    one United States Army Corps Of Engineers business surface.'
+  tags:
+  - United States Army Corps Of Engineers
+  - Basins
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY: UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cwms-data-basins
+    baseUri: https://cwms-data.usace.army.mil/cwms-data
+    description: CWMS Data API — Basins business capability. Self-contained, no shared references.
+    resources:
+    - name: basins
+      path: /basins
+      operations:
+      - name: getbasins
+        method: GET
+        description: Get Basins
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: office
+          in: query
+          type: string
+          description: Three-character USACE district office code
+        - name: basin-id
+          in: query
+          type: string
+          description: Basin identifier (supports wildcards)
+        - name: unit
+          in: query
+          type: string
+          description: Measurement unit system (EN or SI)
+        - name: page
+          in: query
+          type: string
+          description: Pagination cursor
+        - name: page-size
+          in: query
+          type: integer
+          description: Number of results per page
+    authentication:
+      type: bearer
+      token: '{{env.UNITED_STATES_ARMY_CORPS_OF_ENGINEERS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cwms-data-basins-rest
+    port: 8080
+    description: REST adapter for CWMS Data API — Basins. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/basins
+      name: basins
+      description: REST surface for basins.
+      operations:
+      - method: GET
+        name: getbasins
+        description: Get Basins
+        call: cwms-data-basins.getbasins
+        with:
+          office: rest.office
+          basin-id: rest.basin-id
+          unit: rest.unit
+          page: rest.page
+          page-size: rest.page-size
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cwms-data-basins-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CWMS Data API — Basins. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-basins
+      description: Get Basins
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cwms-data-basins.getbasins
+      with:
+        office: tools.office
+        basin-id: tools.basin-id
+        unit: tools.unit
+        page: tools.page
+        page-size: tools.page-size
+      outputParameters:
+      - type: object
+        mapping: $.
