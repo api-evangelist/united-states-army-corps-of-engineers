@@ -1,0 +1,770 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CWMS Data API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Version",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get API Root",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/"
+          },
+          "docs": "Returns a welcome message confirming the API is available."
+        },
+        {
+          "info": {
+            "name": "Get API Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/version"
+          },
+          "docs": "Returns the current version of the CWMS Data API."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Catalog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/catalog/:datastore-type",
+            "params": [
+              {
+                "name": "datastore-type",
+                "value": "",
+                "type": "path",
+                "description": "The type of data to catalog (TIMESERIES, LOCATIONS, RATINGS, etc.)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response"
+              },
+              {
+                "name": "page-size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page (max 500)"
+              },
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code (e.g., SWT, LRN)"
+              },
+              {
+                "name": "like",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using a CWMS wildcard pattern"
+              }
+            ]
+          },
+          "docs": "Returns a catalog of available time series, locations, or other data stored in CWMS. Use this endpoint to discover available data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/locations",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of location names (supports CWMS wildcards)"
+              },
+              {
+                "name": "unit",
+                "value": "",
+                "type": "query",
+                "description": "Measurement unit system (EN for English, SI for metric)"
+              },
+              {
+                "name": "datum",
+                "value": "",
+                "type": "query",
+                "description": "Vertical datum for elevation values (NAVD88, NGVD29, etc.)"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format"
+              }
+            ]
+          },
+          "docs": "Returns location data for USACE-managed sites including dams, reservoirs, stream gages, and other water resource facilities."
+        },
+        {
+          "info": {
+            "name": "Create Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/locations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new location record in CWMS. Requires authentication."
+        },
+        {
+          "info": {
+            "name": "Get Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/locations/:location-id",
+            "params": [
+              {
+                "name": "location-id",
+                "value": "",
+                "type": "path",
+                "description": "The CWMS location identifier"
+              },
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "unit",
+                "value": "",
+                "type": "query",
+                "description": "Measurement unit system (EN or SI)"
+              }
+            ]
+          },
+          "docs": "Returns data for a specific USACE location."
+        },
+        {
+          "info": {
+            "name": "Update Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/locations/:location-id",
+            "params": [
+              {
+                "name": "location-id",
+                "value": "",
+                "type": "path",
+                "description": "The CWMS location identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing location record. Requires authentication."
+        },
+        {
+          "info": {
+            "name": "Delete Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/locations/:location-id",
+            "params": [
+              {
+                "name": "location-id",
+                "value": "",
+                "type": "path",
+                "description": "The CWMS location identifier"
+              },
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a location record. Requires authentication."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Time Series",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Time Series",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/timeseries",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "The time series identifier in CWMS format (e.g., DALT2.Stage.Inst.15Minutes.0.raw)"
+              },
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "unit",
+                "value": "",
+                "type": "query",
+                "description": "Measurement unit for the returned data"
+              },
+              {
+                "name": "datum",
+                "value": "",
+                "type": "query",
+                "description": "Vertical datum for elevation values"
+              },
+              {
+                "name": "begin",
+                "value": "",
+                "type": "query",
+                "description": "Start of time window in ISO 8601 format or milliseconds since epoch"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End of time window in ISO 8601 format or milliseconds since epoch"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "Timezone for interpreting date/time values"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response"
+              },
+              {
+                "name": "page-size",
+                "value": "",
+                "type": "query",
+                "description": "Number of time series values per page"
+              }
+            ]
+          },
+          "docs": "Returns time series data for a specified time window. Time series data includes measurements such as river stage, flow, precipitation, temperature, and reservoir pool elevation over time."
+        },
+        {
+          "info": {
+            "name": "Get Recent Time Series",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/timeseries/recent",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Time series identifier (supports CWMS wildcards)"
+              },
+              {
+                "name": "recently-changed-within",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 duration for how recently the data was updated (e.g., PT2H for 2 hours)"
+              }
+            ]
+          },
+          "docs": "Returns the most recent time series values. Useful for displaying current conditions at USACE locations."
+        },
+        {
+          "info": {
+            "name": "Get Filtered Time Series",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/timeseries/filtered",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Time series identifier (supports CWMS wildcards)"
+              }
+            ]
+          },
+          "docs": "Returns filtered time series data based on specified criteria."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Levels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Level Time Series",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/levels/:level-id/timeseries",
+            "params": [
+              {
+                "name": "level-id",
+                "value": "",
+                "type": "path",
+                "description": "The location level identifier"
+              },
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "begin",
+                "value": "",
+                "type": "query",
+                "description": "Start of time window in ISO 8601 format"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End of time window in ISO 8601 format"
+              }
+            ]
+          },
+          "docs": "Returns time series for a specified location level."
+        },
+        {
+          "info": {
+            "name": "Get Levels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/levels",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "location-id",
+                "value": "",
+                "type": "query",
+                "description": "Location identifier (supports wildcards)"
+              },
+              {
+                "name": "begin",
+                "value": "",
+                "type": "query",
+                "description": "Start of effective date range"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End of effective date range"
+              },
+              {
+                "name": "unit",
+                "value": "",
+                "type": "query",
+                "description": "Measurement unit system (EN or SI)"
+              },
+              {
+                "name": "datum",
+                "value": "",
+                "type": "query",
+                "description": "Vertical datum for elevation values"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              },
+              {
+                "name": "page-size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Returns location levels (flood stage, normal pool, etc.) for USACE locations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Ratings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Ratings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/ratings",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "rating-id",
+                "value": "",
+                "type": "query",
+                "description": "Rating identifier (supports CWMS wildcards)"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start of effective date range"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End of effective date range"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "Timezone for date/time values"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format"
+              }
+            ]
+          },
+          "docs": "Returns rating tables used to convert between measured values (e.g., stage to flow, gate opening to discharge)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Basins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Basins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/basins",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "basin-id",
+                "value": "",
+                "type": "query",
+                "description": "Basin identifier (supports wildcards)"
+              },
+              {
+                "name": "unit",
+                "value": "",
+                "type": "query",
+                "description": "Measurement unit system (EN or SI)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              },
+              {
+                "name": "page-size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Returns river basin information for USACE water management areas."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Forecasts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Forecast Specifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/forecast-spec",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "spec-id-mask",
+                "value": "",
+                "type": "query",
+                "description": "Mask for filtering forecast spec IDs (supports wildcards)"
+              },
+              {
+                "name": "designator-mask",
+                "value": "",
+                "type": "query",
+                "description": "Mask for filtering designators"
+              },
+              {
+                "name": "location-mask",
+                "value": "",
+                "type": "query",
+                "description": "Mask for filtering locations"
+              }
+            ]
+          },
+          "docs": "Returns forecast specifications available in the CWMS system."
+        },
+        {
+          "info": {
+            "name": "Get Forecast Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/forecast-instance",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Forecast spec name"
+              },
+              {
+                "name": "designator",
+                "value": "",
+                "type": "query",
+                "description": "Forecast designator"
+              },
+              {
+                "name": "forecast-date",
+                "value": "",
+                "type": "query",
+                "description": "Forecast issue date in ISO 8601 format"
+              },
+              {
+                "name": "issue-date",
+                "value": "",
+                "type": "query",
+                "description": "Date forecast was issued in ISO 8601 format"
+              }
+            ]
+          },
+          "docs": "Returns forecast instances with time series data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/projects",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "id-mask",
+                "value": "",
+                "type": "query",
+                "description": "Project ID mask (supports wildcards)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              },
+              {
+                "name": "page-size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Returns USACE water resource projects (dams, locks, reservoirs)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Parameters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/parameters"
+          },
+          "docs": "Returns the list of physical parameters available in the CWMS system (e.g., Stage, Flow, Precip, Temp)."
+        },
+        {
+          "info": {
+            "name": "Get Units",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/units",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format"
+              }
+            ]
+          },
+          "docs": "Returns the list of measurement units available in the CWMS system."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

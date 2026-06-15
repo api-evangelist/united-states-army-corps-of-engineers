@@ -1,66 +1,63 @@
-# United States Army Corps of Engineers
+# United States Army Corps of Engineers (united-states-army-corps-of-engineers)
 
-The U.S. Army Corps of Engineers (USACE) provides engineering and construction services for the nation, managing water resources, infrastructure, and environmental projects. USACE operates the Corps Water Management System (CWMS) Data API, a RESTful service providing real-time and historical access to water management data across the United States including time series measurements, location data, ratings, forecasts, and project information.
+The U.S. Army Corps of Engineers (USACE) provides engineering and construction services for the nation, managing water resources, infrastructure, and environmental projects. USACE operates the Corps Water Management System (CWMS) Data API, a RESTful service for accessing real-time and historical water management data including time series measurements, location information, ratings, forecasts, and project data for USACE-managed water resources across the United States.
 
-**Website:** [https://www.usace.army.mil/](https://www.usace.army.mil/)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/united-states-army-corps-of-engineers/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/united-states-army-corps-of-engineers/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
+
+## Tags
+
+- Engineering
+- Federal Government
+- Water Resources
+- Hydrology
+- Civil Engineering
+
+## Timestamps
+
+- **Created:** 2024-12-25
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### CWMS Data API
 
-The Corps Water Management System (CWMS) Data API provides public access to water resource data managed by the U.S. Army Corps of Engineers.
+The Corps Water Management System (CWMS) Data API provides a RESTful interface for retrieving water management data from the U.S. Army Corps of Engineers. Supports access to time series, locations, ratings, forecasts, levels, projects, basins, and parameters for USACE-managed water resources nationwide.
 
-- **Documentation:** [cwms-data.usace.army.mil](https://cwms-data.usace.army.mil/cwms-data/)
+- **Human URL:** [https://cwms-data.usace.army.mil/cwms-data/](https://cwms-data.usace.army.mil/cwms-data/)
 - **Base URL:** `https://cwms-data.usace.army.mil/cwms-data`
-- **GitHub:** [USACE/cwms-data-api](https://github.com/USACE/cwms-data-api)
 
-## Artifacts
+#### Tags
 
-### OpenAPI Specifications
+- Water Management
+- Hydrology
+- Time Series
+- REST API
 
-- [cwms-data-api-openapi.yml](openapi/cwms-data-api-openapi.yml) — OpenAPI 3.1 specification for the CWMS Data API covering locations, time series, levels, ratings, forecasts, projects, and basins.
+#### Properties
 
-### Examples
+- [Documentation](https://cwms-data.usace.army.mil/cwms-data/)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/united-states-army-corps-of-engineers/refs/heads/main/openapi/cwms-data-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [GitHub Repository](https://github.com/USACE/cwms-data-api)
+- [Swagger U I](https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html)
+- [Postman Collection](collections/cwms-data-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/cwms-data-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
-- [cwms-data-api-getTimeSeries-example.json](examples/cwms-data-api-getTimeSeries-example.json) — Example request/response for retrieving time series measurements.
-- [cwms-data-api-getLocations-example.json](examples/cwms-data-api-getLocations-example.json) — Example request/response for retrieving location data.
-- [cwms-data-api-getCatalog-example.json](examples/cwms-data-api-getCatalog-example.json) — Example request/response for browsing the CWMS data catalog.
+## Common Properties
 
-### Spectral Rules
+- [LinkedIn](https://www.linkedin.com/company/us-army-corps-of-engineers)
+- [Website](https://www.usace.army.mil/)
+- [Open Data](https://www.usace.army.mil/open/)
+- [Geospatial Data](https://geospatial-usace.opendata.arcgis.com/)
+- [Water Data](https://water.usace.army.mil/data)
+- [Digital Library](https://usace.contentdm.oclc.org/)
+- [Git Hub](https://github.com/USACE)
+- [Permits Data](https://permits.ops.usace.army.mil/)
 
-- [cwms-data-api-rules.yml](rules/cwms-data-api-rules.yml) — Spectral ruleset enforcing CWMS API conventions including office code documentation, timestamp format standards, and pagination requirements.
+## Maintainers
 
-### Capabilities
-
-- [water-resources-management.yaml](capabilities/water-resources-management.yaml) — Naftiko workflow capability for USACE water resources management, providing unified REST and MCP access to locations, time series, forecasts, and project data.
-- [capabilities/shared/cwms-data-api.yaml](capabilities/shared/cwms-data-api.yaml) — Shared per-API Naftiko capability definition for the CWMS Data API.
-
-### JSON Schema
-
-- [cwms-data-api-location-schema.json](json-schema/cwms-data-api-location-schema.json) — JSON Schema for CWMS Location objects.
-- [cwms-data-api-timeseries-schema.json](json-schema/cwms-data-api-timeseries-schema.json) — JSON Schema for CWMS Time Series objects.
-
-### JSON Structure
-
-- [cwms-data-api-location-structure.json](json-structure/cwms-data-api-location-structure.json) — Structure documentation for CWMS Location fields.
-- [cwms-data-api-timeseries-structure.json](json-structure/cwms-data-api-timeseries-structure.json) — Structure documentation for CWMS Time Series fields.
-
-### JSON-LD Context
-
-- [united-states-army-corps-of-engineers-context.jsonld](json-ld/united-states-army-corps-of-engineers-context.jsonld) — Linked data context aligning CWMS vocabulary with SOSA/SSN observation ontologies, QUDT units, and schema.org.
-
-### Vocabulary
-
-- [united-states-army-corps-of-engineers-vocabulary.yml](vocabulary/united-states-army-corps-of-engineers-vocabulary.yml) — Domain vocabulary covering water resources management, CWMS data structures, hydrology terms, and engineering concepts.
-
-## Additional Resources
-
-| Resource | Link |
-|---|---|
-| Open Data | [usace.army.mil/open](https://www.usace.army.mil/open/) |
-| Geospatial Data | [geospatial-usace.opendata.arcgis.com](https://geospatial-usace.opendata.arcgis.com/) |
-| Water Data Platform | [water.usace.army.mil](https://water.usace.army.mil/data) |
-| Permits Data | [permits.ops.usace.army.mil](https://permits.ops.usace.army.mil/) |
-| GitHub | [github.com/USACE](https://github.com/USACE) |
-
-**Maintained by:** [API Evangelist](https://apievangelist.com)
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com
