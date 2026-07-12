@@ -44,6 +44,10 @@ apis:
       - type: SwaggerUI
         url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
 common:
+  - type: DomainSecurity
+    url: security/united-states-army-corps-of-engineers-domain-security.yml
+  - type: Authentication
+    url: authentication/united-states-army-corps-of-engineers-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/us-army-corps-of-engineers
   - type: Website

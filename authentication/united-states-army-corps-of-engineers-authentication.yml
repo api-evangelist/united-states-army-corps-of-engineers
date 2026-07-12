@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/cwms-data-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: JWT Bearer token for authenticated operations (create, update, delete). Obtain
+    a token from the CWMS authorization endpoint.
+  sources:
+  - openapi/cwms-data-api-openapi.yml
