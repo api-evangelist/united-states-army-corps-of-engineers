@@ -44,6 +44,8 @@ apis:
       - type: SwaggerUI
         url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
 common:
+  - type: AgenticAccess
+    url: agentic-access/united-states-army-corps-of-engineers-agentic-access.yml
   - type: DomainSecurity
     url: security/united-states-army-corps-of-engineers-domain-security.yml
   - type: Authentication
