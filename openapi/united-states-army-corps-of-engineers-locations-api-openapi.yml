@@ -1,0 +1,297 @@
+openapi: 3.1.0
+info:
+  title: CWMS Data Basins Locations API
+  description: The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.
+  version: 3.0.0
+  contact:
+    name: USACE CWMS Data API Support
+    url: https://github.com/USACE/cwms-data-api
+  license:
+    name: MIT
+    url: https://github.com/USACE/cwms-data-api/blob/develop/LICENSE.md
+  x-tags:
+  - Water Management
+  - Federal Government
+  - Hydrology
+  - Engineering
+servers:
+- url: https://cwms-data.usace.army.mil/cwms-data
+  description: Production CWMS Data API
+- url: https://water.usace.army.mil/cwms-data
+  description: Water Data Platform
+tags:
+- name: Locations
+  description: USACE location data including dams, reservoirs, streamgages, and sites
+paths:
+  /locations:
+    get:
+      operationId: getLocations
+      summary: Get Locations
+      description: Returns location data for USACE-managed sites including dams, reservoirs, stream gages, and other water resource facilities.
+      tags:
+      - Locations
+      parameters:
+      - name: office
+        in: query
+        required: false
+        description: Three-character USACE district office code
+        schema:
+          type: string
+      - name: names
+        in: query
+        required: false
+        description: Comma-separated list of location names (supports CWMS wildcards)
+        schema:
+          type: string
+      - name: unit
+        in: query
+        required: false
+        description: Measurement unit system (EN for English, SI for metric)
+        schema:
+          type: string
+          enum:
+          - EN
+          - SI
+      - name: datum
+        in: query
+        required: false
+        description: Vertical datum for elevation values (NAVD88, NGVD29, etc.)
+        schema:
+          type: string
+      - name: format
+        in: query
+        required: false
+        description: Response format
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          - tab
+          - csv
+      responses:
+        '200':
+          description: Location data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    post:
+      operationId: createLocation
+      summary: Create Location
+      description: Creates a new location record in CWMS. Requires authentication.
+      tags:
+      - Locations
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '200':
+          description: Location created successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /locations/{location-id}:
+    get:
+      operationId: getLocation
+      summary: Get Location
+      description: Returns data for a specific USACE location.
+      tags:
+      - Locations
+      parameters:
+      - name: location-id
+        in: path
+        required: true
+        description: The CWMS location identifier
+        schema:
+          type: string
+      - name: office
+        in: query
+        required: false
+        description: Three-character USACE district office code
+        schema:
+          type: string
+      - name: unit
+        in: query
+        required: false
+        description: Measurement unit system (EN or SI)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Location data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateLocation
+      summary: Update Location
+      description: Updates an existing location record. Requires authentication.
+      tags:
+      - Locations
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: location-id
+        in: path
+        required: true
+        description: The CWMS location identifier
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '200':
+          description: Location updated successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteLocation
+      summary: Delete Location
+      description: Deletes a location record. Requires authentication.
+      tags:
+      - Locations
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: location-id
+        in: path
+        required: true
+        description: The CWMS location identifier
+        schema:
+          type: string
+      - name: office
+        in: query
+        required: true
+        description: Three-character USACE district office code
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Location deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+        status:
+          type: integer
+          description: HTTP status code
+    LocationsResponse:
+      type: object
+      properties:
+        locations:
+          type: object
+          properties:
+            location:
+              type: array
+              items:
+                $ref: '#/components/schemas/Location'
+    Location:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The CWMS location identifier
+        office-id:
+          type: string
+          description: Three-character USACE district office code
+        latitude:
+          type: number
+          format: double
+          description: Decimal latitude (WGS84)
+        longitude:
+          type: number
+          format: double
+          description: Decimal longitude (WGS84)
+        elevation:
+          type: number
+          format: double
+          description: Elevation in the specified datum and unit
+        horizontal-datum:
+          type: string
+          description: Horizontal datum (e.g., WGS84, NAD83)
+        vertical-datum:
+          type: string
+          description: Vertical datum (e.g., NAVD88, NGVD29)
+        elevation-units:
+          type: string
+          description: Unit of elevation measurement
+        public-name:
+          type: string
+          description: Public-facing name of the location
+        long-name:
+          type: string
+          description: Long descriptive name
+        description:
+          type: string
+          description: Description of the location
+        kind:
+          type: string
+          description: Location kind (SITE, STREAM_LOCATION, PROJECT, etc.)
+        type:
+          type: string
+          description: Location type
+        state-initial:
+          type: string
+          description: Two-character U.S. state abbreviation
+        county-name:
+          type: string
+          description: County name
+        timezone-name:
+          type: string
+          description: IANA timezone name
+        nation:
+          type: string
+          description: Nation code (e.g., US)
+        nearest-city:
+          type: string
+          description: Nearest city name
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — invalid parameters or missing required fields
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT Bearer token for authenticated operations (create, update, delete). Obtain a token from the CWMS authorization endpoint.

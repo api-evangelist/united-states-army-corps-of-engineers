@@ -1,0 +1,133 @@
+openapi: 3.1.0
+info:
+  title: CWMS Data Basins Levels API
+  description: The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.
+  version: 3.0.0
+  contact:
+    name: USACE CWMS Data API Support
+    url: https://github.com/USACE/cwms-data-api
+  license:
+    name: MIT
+    url: https://github.com/USACE/cwms-data-api/blob/develop/LICENSE.md
+  x-tags:
+  - Water Management
+  - Federal Government
+  - Hydrology
+  - Engineering
+servers:
+- url: https://cwms-data.usace.army.mil/cwms-data
+  description: Production CWMS Data API
+- url: https://water.usace.army.mil/cwms-data
+  description: Water Data Platform
+tags:
+- name: Levels
+  description: Location levels and stage-discharge relationships
+paths:
+  /levels/{level-id}/timeseries:
+    get:
+      operationId: getLevelTimeSeries
+      summary: Get Level Time Series
+      description: Returns time series for a specified location level.
+      tags:
+      - Levels
+      parameters:
+      - name: level-id
+        in: path
+        required: true
+        description: The location level identifier
+        schema:
+          type: string
+      - name: office
+        in: query
+        required: false
+        description: Three-character USACE district office code
+        schema:
+          type: string
+      - name: begin
+        in: query
+        required: false
+        description: Start of time window in ISO 8601 format
+        schema:
+          type: string
+      - name: end
+        in: query
+        required: false
+        description: End of time window in ISO 8601 format
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Level time series data
+          content:
+            application/json:
+              schema:
+                type: object
+  /levels:
+    get:
+      operationId: getLevels
+      summary: Get Levels
+      description: Returns location levels (flood stage, normal pool, etc.) for USACE locations.
+      tags:
+      - Levels
+      parameters:
+      - name: office
+        in: query
+        required: false
+        description: Three-character USACE district office code
+        schema:
+          type: string
+      - name: location-id
+        in: query
+        required: false
+        description: Location identifier (supports wildcards)
+        schema:
+          type: string
+      - name: begin
+        in: query
+        required: false
+        description: Start of effective date range
+        schema:
+          type: string
+      - name: end
+        in: query
+        required: false
+        description: End of effective date range
+        schema:
+          type: string
+      - name: unit
+        in: query
+        required: false
+        description: Measurement unit system (EN or SI)
+        schema:
+          type: string
+      - name: datum
+        in: query
+        required: false
+        description: Vertical datum for elevation values
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: Pagination cursor
+        schema:
+          type: string
+      - name: page-size
+        in: query
+        required: false
+        description: Number of results per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Location levels data
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT Bearer token for authenticated operations (create, update, delete). Obtain a token from the CWMS authorization endpoint.

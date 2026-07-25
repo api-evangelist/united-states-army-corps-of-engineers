@@ -1,0 +1,101 @@
+openapi: 3.1.0
+info:
+  title: CWMS Data Basins Ratings API
+  description: The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.
+  version: 3.0.0
+  contact:
+    name: USACE CWMS Data API Support
+    url: https://github.com/USACE/cwms-data-api
+  license:
+    name: MIT
+    url: https://github.com/USACE/cwms-data-api/blob/develop/LICENSE.md
+  x-tags:
+  - Water Management
+  - Federal Government
+  - Hydrology
+  - Engineering
+servers:
+- url: https://cwms-data.usace.army.mil/cwms-data
+  description: Production CWMS Data API
+- url: https://water.usace.army.mil/cwms-data
+  description: Water Data Platform
+tags:
+- name: Ratings
+  description: Rating tables for converting between measured values
+paths:
+  /ratings:
+    get:
+      operationId: getRatings
+      summary: Get Ratings
+      description: Returns rating tables used to convert between measured values (e.g., stage to flow, gate opening to discharge).
+      tags:
+      - Ratings
+      parameters:
+      - name: office
+        in: query
+        required: false
+        description: Three-character USACE district office code
+        schema:
+          type: string
+      - name: rating-id
+        in: query
+        required: false
+        description: Rating identifier (supports CWMS wildcards)
+        schema:
+          type: string
+      - name: start
+        in: query
+        required: false
+        description: Start of effective date range
+        schema:
+          type: string
+      - name: end
+        in: query
+        required: false
+        description: End of effective date range
+        schema:
+          type: string
+      - name: timezone
+        in: query
+        required: false
+        description: Timezone for date/time values
+        schema:
+          type: string
+      - name: format
+        in: query
+        required: false
+        description: Response format
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Rating tables
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  responses:
+    BadRequest:
+      description: Bad request — invalid parameters or missing required fields
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+        status:
+          type: integer
+          description: HTTP status code
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT Bearer token for authenticated operations (create, update, delete). Obtain a token from the CWMS authorization endpoint.

@@ -1,0 +1,238 @@
+openapi: 3.1.0
+info:
+  title: CWMS Data Basins Time Series API
+  description: The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.
+  version: 3.0.0
+  contact:
+    name: USACE CWMS Data API Support
+    url: https://github.com/USACE/cwms-data-api
+  license:
+    name: MIT
+    url: https://github.com/USACE/cwms-data-api/blob/develop/LICENSE.md
+  x-tags:
+  - Water Management
+  - Federal Government
+  - Hydrology
+  - Engineering
+servers:
+- url: https://cwms-data.usace.army.mil/cwms-data
+  description: Production CWMS Data API
+- url: https://water.usace.army.mil/cwms-data
+  description: Water Data Platform
+tags:
+- name: Time Series
+  description: Time series data retrieval and management
+paths:
+  /timeseries:
+    get:
+      operationId: getTimeSeries
+      summary: Get Time Series
+      description: Returns time series data for a specified time window. Time series data includes measurements such as river stage, flow, precipitation, temperature, and reservoir pool elevation over time.
+      tags:
+      - Time Series
+      parameters:
+      - name: name
+        in: query
+        required: true
+        description: The time series identifier in CWMS format (e.g., DALT2.Stage.Inst.15Minutes.0.raw)
+        schema:
+          type: string
+      - name: office
+        in: query
+        required: false
+        description: Three-character USACE district office code
+        schema:
+          type: string
+      - name: unit
+        in: query
+        required: false
+        description: Measurement unit for the returned data
+        schema:
+          type: string
+      - name: datum
+        in: query
+        required: false
+        description: Vertical datum for elevation values
+        schema:
+          type: string
+      - name: begin
+        in: query
+        required: false
+        description: Start of time window in ISO 8601 format or milliseconds since epoch
+        schema:
+          type: string
+      - name: end
+        in: query
+        required: false
+        description: End of time window in ISO 8601 format or milliseconds since epoch
+        schema:
+          type: string
+      - name: timezone
+        in: query
+        required: false
+        description: Timezone for interpreting date/time values
+        schema:
+          type: string
+      - name: format
+        in: query
+        required: false
+        description: Response format
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          - tab
+          - csv
+      - name: page
+        in: query
+        required: false
+        description: Pagination cursor from a previous response
+        schema:
+          type: string
+      - name: page-size
+        in: query
+        required: false
+        description: Number of time series values per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Time series data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeSeries'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /timeseries/recent:
+    get:
+      operationId: getRecentTimeSeries
+      summary: Get Recent Time Series
+      description: Returns the most recent time series values. Useful for displaying current conditions at USACE locations.
+      tags:
+      - Time Series
+      parameters:
+      - name: office
+        in: query
+        required: false
+        description: Three-character USACE district office code
+        schema:
+          type: string
+      - name: name
+        in: query
+        required: false
+        description: Time series identifier (supports CWMS wildcards)
+        schema:
+          type: string
+      - name: recently-changed-within
+        in: query
+        required: false
+        description: ISO 8601 duration for how recently the data was updated (e.g., PT2H for 2 hours)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Recent time series data
+          content:
+            application/json:
+              schema:
+                type: object
+  /timeseries/filtered:
+    get:
+      operationId: getFilteredTimeSeries
+      summary: Get Filtered Time Series
+      description: Returns filtered time series data based on specified criteria.
+      tags:
+      - Time Series
+      parameters:
+      - name: office
+        in: query
+        required: false
+        description: Three-character USACE district office code
+        schema:
+          type: string
+      - name: name
+        in: query
+        required: false
+        description: Time series identifier (supports CWMS wildcards)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Filtered time series data
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+        status:
+          type: integer
+          description: HTTP status code
+    TimeSeriesValue:
+      type: array
+      description: An array of [timestamp (ms since epoch), value, quality code] tuples
+      items:
+        type: number
+    TimeSeries:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The time series identifier
+        office-id:
+          type: string
+          description: Owning USACE district office code
+        units:
+          type: string
+          description: Measurement units
+        interval:
+          type: integer
+          description: Data interval in minutes (0 for irregular)
+        interval-offset:
+          type: integer
+          description: Interval offset in minutes
+        time-zone:
+          type: string
+          description: Timezone for the time series
+        values:
+          type: array
+          description: Array of [timestamp, value, quality] tuples
+          items:
+            $ref: '#/components/schemas/TimeSeriesValue'
+        total:
+          type: integer
+          description: Total number of values available
+        page:
+          type: string
+          description: Current page cursor
+        next-page:
+          type: string
+          description: Next page cursor
+  responses:
+    BadRequest:
+      description: Bad request — invalid parameters or missing required fields
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT Bearer token for authenticated operations (create, update, delete). Obtain a token from the CWMS authorization endpoint.

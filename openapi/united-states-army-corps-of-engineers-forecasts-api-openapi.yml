@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: CWMS Data Basins Forecasts API
+  description: The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.
+  version: 3.0.0
+  contact:
+    name: USACE CWMS Data API Support
+    url: https://github.com/USACE/cwms-data-api
+  license:
+    name: MIT
+    url: https://github.com/USACE/cwms-data-api/blob/develop/LICENSE.md
+  x-tags:
+  - Water Management
+  - Federal Government
+  - Hydrology
+  - Engineering
+servers:
+- url: https://cwms-data.usace.army.mil/cwms-data
+  description: Production CWMS Data API
+- url: https://water.usace.army.mil/cwms-data
+  description: Water Data Platform
+tags:
+- name: Forecasts
+  description: Forecast instances and specifications
+paths:
+  /forecast-spec:
+    get:
+      operationId: getForecastSpecs
+      summary: Get Forecast Specifications
+      description: Returns forecast specifications available in the CWMS system.
+      tags:
+      - Forecasts
+      parameters:
+      - name: office
+        in: query
+        required: false
+        description: Three-character USACE district office code
+        schema:
+          type: string
+      - name: spec-id-mask
+        in: query
+        required: false
+        description: Mask for filtering forecast spec IDs (supports wildcards)
+        schema:
+          type: string
+      - name: designator-mask
+        in: query
+        required: false
+        description: Mask for filtering designators
+        schema:
+          type: string
+      - name: location-mask
+        in: query
+        required: false
+        description: Mask for filtering locations
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Forecast specifications
+          content:
+            application/json:
+              schema:
+                type: object
+  /forecast-instance:
+    get:
+      operationId: getForecastInstances
+      summary: Get Forecast Instances
+      description: Returns forecast instances with time series data.
+      tags:
+      - Forecasts
+      parameters:
+      - name: office
+        in: query
+        required: false
+        description: Three-character USACE district office code
+        schema:
+          type: string
+      - name: name
+        in: query
+        required: false
+        description: Forecast spec name
+        schema:
+          type: string
+      - name: designator
+        in: query
+        required: false
+        description: Forecast designator
+        schema:
+          type: string
+      - name: forecast-date
+        in: query
+        required: false
+        description: Forecast issue date in ISO 8601 format
+        schema:
+          type: string
+      - name: issue-date
+        in: query
+        required: false
+        description: Date forecast was issued in ISO 8601 format
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Forecast instance data
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT Bearer token for authenticated operations (create, update, delete). Obtain a token from the CWMS authorization endpoint.
