@@ -6,7 +6,20 @@ description: >-
   API, a RESTful service for accessing real-time and historical water management data including time series
   measurements, location information, ratings, forecasts, and project data for USACE-managed water resources across the
   United States.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/united-states-army-corps-of-engineers.png
 url: https://raw.githubusercontent.com/api-evangelist/united-states-army-corps-of-engineers/refs/heads/main/apis.yml
 type: Index
 created: '2024-12-25'
@@ -19,30 +32,170 @@ tags:
   - Hydrology
   - Civil Engineering
 apis:
-  - aid: united-states-army-corps-of-engineers:cwms-data-api
-    name: CWMS Data API
-    description: >-
-      The Corps Water Management System (CWMS) Data API provides a RESTful interface for retrieving water management
-      data from the U.S. Army Corps of Engineers. Supports access to time series, locations, ratings, forecasts, levels,
-      projects, basins, and parameters for USACE-managed water resources nationwide.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://cwms-data.usace.army.mil/cwms-data/
-    baseURL: https://cwms-data.usace.army.mil/cwms-data
-    tags:
-      - Water Management
-      - Hydrology
-      - Time Series
-      - REST API
-    properties:
-      - type: Documentation
-        url: https://cwms-data.usace.army.mil/cwms-data/
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/united-states-army-corps-of-engineers/refs/heads/main/openapi/cwms-data-api-openapi.yml
-      - type: GitHubRepository
-        url: https://github.com/USACE/cwms-data-api
-      - type: SwaggerUI
-        url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
+- aid: united-states-army-corps-of-engineers:united-states-army-corps-of-engineers-basins-api
+  name: United States Army Corps of Engineers Basins API
+  description: River basin information
+  humanURL: https://cwms-data.usace.army.mil/cwms-data/
+  baseURL: https://cwms-data.usace.army.mil/cwms-data
+  tags:
+  - Basins
+  properties:
+  - type: OpenAPI
+    url: openapi/united-states-army-corps-of-engineers-basins-api-openapi.yml
+  - type: Documentation
+    url: https://cwms-data.usace.army.mil/cwms-data/
+  - type: GitHubRepository
+    url: https://github.com/USACE/cwms-data-api
+  - type: SwaggerUI
+    url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
+- aid: united-states-army-corps-of-engineers:united-states-army-corps-of-engineers-catalog-api
+  name: United States Army Corps of Engineers Catalog API
+  description: Browse available data in the CWMS catalog
+  humanURL: https://cwms-data.usace.army.mil/cwms-data/
+  baseURL: https://cwms-data.usace.army.mil/cwms-data
+  tags:
+  - Catalog
+  properties:
+  - type: OpenAPI
+    url: openapi/united-states-army-corps-of-engineers-catalog-api-openapi.yml
+  - type: Documentation
+    url: https://cwms-data.usace.army.mil/cwms-data/
+  - type: GitHubRepository
+    url: https://github.com/USACE/cwms-data-api
+  - type: SwaggerUI
+    url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
+- aid: >-
+    united-states-army-corps-of-engineers:united-states-army-corps-of-engineers-forecasts-api
+  name: United States Army Corps of Engineers Forecasts API
+  description: Forecast instances and specifications
+  humanURL: https://cwms-data.usace.army.mil/cwms-data/
+  baseURL: https://cwms-data.usace.army.mil/cwms-data
+  tags:
+  - Forecasts
+  properties:
+  - type: OpenAPI
+    url: openapi/united-states-army-corps-of-engineers-forecasts-api-openapi.yml
+  - type: Documentation
+    url: https://cwms-data.usace.army.mil/cwms-data/
+  - type: GitHubRepository
+    url: https://github.com/USACE/cwms-data-api
+  - type: SwaggerUI
+    url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
+- aid: united-states-army-corps-of-engineers:united-states-army-corps-of-engineers-levels-api
+  name: United States Army Corps of Engineers Levels API
+  description: Location levels and stage-discharge relationships
+  humanURL: https://cwms-data.usace.army.mil/cwms-data/
+  baseURL: https://cwms-data.usace.army.mil/cwms-data
+  tags:
+  - Levels
+  properties:
+  - type: OpenAPI
+    url: openapi/united-states-army-corps-of-engineers-levels-api-openapi.yml
+  - type: Documentation
+    url: https://cwms-data.usace.army.mil/cwms-data/
+  - type: GitHubRepository
+    url: https://github.com/USACE/cwms-data-api
+  - type: SwaggerUI
+    url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
+- aid: >-
+    united-states-army-corps-of-engineers:united-states-army-corps-of-engineers-locations-api
+  name: United States Army Corps of Engineers Locations API
+  description: USACE location data including dams, reservoirs, streamgages, and sites
+  humanURL: https://cwms-data.usace.army.mil/cwms-data/
+  baseURL: https://cwms-data.usace.army.mil/cwms-data
+  tags:
+  - Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/united-states-army-corps-of-engineers-locations-api-openapi.yml
+  - type: Documentation
+    url: https://cwms-data.usace.army.mil/cwms-data/
+  - type: GitHubRepository
+    url: https://github.com/USACE/cwms-data-api
+  - type: SwaggerUI
+    url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
+- aid: >-
+    united-states-army-corps-of-engineers:united-states-army-corps-of-engineers-parameters-api
+  name: United States Army Corps of Engineers Parameters API
+  description: Physical parameters and units
+  humanURL: https://cwms-data.usace.army.mil/cwms-data/
+  baseURL: https://cwms-data.usace.army.mil/cwms-data
+  tags:
+  - Parameters
+  properties:
+  - type: OpenAPI
+    url: openapi/united-states-army-corps-of-engineers-parameters-api-openapi.yml
+  - type: Documentation
+    url: https://cwms-data.usace.army.mil/cwms-data/
+  - type: GitHubRepository
+    url: https://github.com/USACE/cwms-data-api
+  - type: SwaggerUI
+    url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
+- aid: united-states-army-corps-of-engineers:united-states-army-corps-of-engineers-projects-api
+  name: United States Army Corps of Engineers Projects API
+  description: USACE project management including locks, gates, turbines, and outlets
+  humanURL: https://cwms-data.usace.army.mil/cwms-data/
+  baseURL: https://cwms-data.usace.army.mil/cwms-data
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/united-states-army-corps-of-engineers-projects-api-openapi.yml
+  - type: Documentation
+    url: https://cwms-data.usace.army.mil/cwms-data/
+  - type: GitHubRepository
+    url: https://github.com/USACE/cwms-data-api
+  - type: SwaggerUI
+    url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
+- aid: united-states-army-corps-of-engineers:united-states-army-corps-of-engineers-ratings-api
+  name: United States Army Corps of Engineers Ratings API
+  description: Rating tables for converting between measured values
+  humanURL: https://cwms-data.usace.army.mil/cwms-data/
+  baseURL: https://cwms-data.usace.army.mil/cwms-data
+  tags:
+  - Ratings
+  properties:
+  - type: OpenAPI
+    url: openapi/united-states-army-corps-of-engineers-ratings-api-openapi.yml
+  - type: Documentation
+    url: https://cwms-data.usace.army.mil/cwms-data/
+  - type: GitHubRepository
+    url: https://github.com/USACE/cwms-data-api
+  - type: SwaggerUI
+    url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
+- aid: >-
+    united-states-army-corps-of-engineers:united-states-army-corps-of-engineers-time-series-api
+  name: United States Army Corps of Engineers Time Series API
+  description: Time series data retrieval and management
+  humanURL: https://cwms-data.usace.army.mil/cwms-data/
+  baseURL: https://cwms-data.usace.army.mil/cwms-data
+  tags:
+  - Time Series
+  properties:
+  - type: OpenAPI
+    url: openapi/united-states-army-corps-of-engineers-time-series-api-openapi.yml
+  - type: Documentation
+    url: https://cwms-data.usace.army.mil/cwms-data/
+  - type: GitHubRepository
+    url: https://github.com/USACE/cwms-data-api
+  - type: SwaggerUI
+    url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
+- aid: united-states-army-corps-of-engineers:united-states-army-corps-of-engineers-version-api
+  name: United States Army Corps of Engineers Version API
+  description: API version information
+  humanURL: https://cwms-data.usace.army.mil/cwms-data/
+  baseURL: https://cwms-data.usace.army.mil/cwms-data
+  tags:
+  - Version
+  properties:
+  - type: OpenAPI
+    url: openapi/united-states-army-corps-of-engineers-version-api-openapi.yml
+  - type: Documentation
+    url: https://cwms-data.usace.army.mil/cwms-data/
+  - type: GitHubRepository
+    url: https://github.com/USACE/cwms-data-api
+  - type: SwaggerUI
+    url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
 common:
   - type: AgenticAccess
     url: agentic-access/united-states-army-corps-of-engineers-agentic-access.yml
