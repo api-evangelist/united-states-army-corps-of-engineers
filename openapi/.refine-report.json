@@ -1,0 +1,32 @@
+{
+  "provider": "united-states-army-corps-of-engineers",
+  "sources": [
+    "united-states-army-corps-of-engineers-basins-api-openapi.yml",
+    "united-states-army-corps-of-engineers-catalog-api-openapi.yml",
+    "united-states-army-corps-of-engineers-forecasts-api-openapi.yml",
+    "united-states-army-corps-of-engineers-levels-api-openapi.yml",
+    "united-states-army-corps-of-engineers-locations-api-openapi.yml",
+    "united-states-army-corps-of-engineers-parameters-api-openapi.yml",
+    "united-states-army-corps-of-engineers-projects-api-openapi.yml",
+    "united-states-army-corps-of-engineers-ratings-api-openapi.yml",
+    "united-states-army-corps-of-engineers-time-series-api-openapi.yml",
+    "united-states-army-corps-of-engineers-version-api-openapi.yml"
+  ],
+  "outputs": [
+    "united-states-army-corps-of-engineers-basins-api-openapi.yml",
+    "united-states-army-corps-of-engineers-catalog-api-openapi.yml",
+    "united-states-army-corps-of-engineers-forecasts-api-openapi.yml",
+    "united-states-army-corps-of-engineers-levels-api-openapi.yml",
+    "united-states-army-corps-of-engineers-locations-api-openapi.yml",
+    "united-states-army-corps-of-engineers-parameters-api-openapi.yml",
+    "united-states-army-corps-of-engineers-projects-api-openapi.yml",
+    "united-states-army-corps-of-engineers-ratings-api-openapi.yml",
+    "united-states-army-corps-of-engineers-time-series-api-openapi.yml",
+    "united-states-army-corps-of-engineers-version-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
