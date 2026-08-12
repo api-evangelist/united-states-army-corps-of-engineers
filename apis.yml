@@ -197,6 +197,9 @@ apis:
   - type: SwaggerUI
     url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
 common:
+  - type: License
+    name: MIT
+    url: https://github.com/USACE/cwms-data-api/blob/develop/LICENSE
   - type: AgenticAccess
     url: agentic-access/united-states-army-corps-of-engineers-agentic-access.yml
   - type: DomainSecurity
