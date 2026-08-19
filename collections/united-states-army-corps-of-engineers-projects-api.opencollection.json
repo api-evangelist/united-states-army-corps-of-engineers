@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CWMS Data Basins Projects API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/projects",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "id-mask",
+                "value": "",
+                "type": "query",
+                "description": "Project ID mask (supports wildcards)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              },
+              {
+                "name": "page-size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Returns USACE water resource projects (dams, locks, reservoirs)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

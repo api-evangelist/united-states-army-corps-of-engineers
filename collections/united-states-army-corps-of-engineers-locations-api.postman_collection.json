@@ -1,0 +1,1045 @@
+{
+  "item": [
+    {
+      "id": "428e02c2-3784-46fa-9691-9d681476b173",
+      "name": "Locations",
+      "description": {
+        "content": "USACE location data including dams, reservoirs, streamgages, and sites",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bb5492ce-43a1-4c07-9937-23435992f2a1",
+          "name": "Get Locations",
+          "request": {
+            "name": "Get Locations",
+            "description": {
+              "content": "Returns location data for USACE-managed sites including dams, reservoirs, stream gages, and other water resource facilities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "office",
+                  "value": "<string>",
+                  "description": "Three-character USACE district office code"
+                },
+                {
+                  "disabled": false,
+                  "key": "names",
+                  "value": "<string>",
+                  "description": "Comma-separated list of location names (supports CWMS wildcards)"
+                },
+                {
+                  "disabled": false,
+                  "key": "unit",
+                  "value": "<string>",
+                  "description": "Measurement unit system (EN for English, SI for metric)"
+                },
+                {
+                  "disabled": false,
+                  "key": "datum",
+                  "value": "<string>",
+                  "description": "Vertical datum for elevation values (NAVD88, NGVD29, etc.)"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Response format"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "74b82091-9610-4cda-87c1-acd6489f44b3",
+              "name": "Location data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datum",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"locations\": {\n    \"location\": [\n      {\n        \"name\": \"string\",\n        \"office-id\": \"string\",\n        \"latitude\": 8079.814351641386,\n        \"longitude\": 4896.278977647448,\n        \"elevation\": 6376.269582438176,\n        \"horizontal-datum\": \"string\",\n        \"vertical-datum\": \"string\",\n        \"elevation-units\": \"string\",\n        \"public-name\": \"string\",\n        \"long-name\": \"string\",\n        \"description\": \"string\",\n        \"kind\": \"string\",\n        \"type\": \"string\",\n        \"state-initial\": \"string\",\n        \"county-name\": \"string\",\n        \"timezone-name\": \"string\",\n        \"nation\": \"string\",\n        \"nearest-city\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"office-id\": \"string\",\n        \"latitude\": 1680.974380010205,\n        \"longitude\": 136.6294797373757,\n        \"elevation\": 7591.822847003437,\n        \"horizontal-datum\": \"string\",\n        \"vertical-datum\": \"string\",\n        \"elevation-units\": \"string\",\n        \"public-name\": \"string\",\n        \"long-name\": \"string\",\n        \"description\": \"string\",\n        \"kind\": \"string\",\n        \"type\": \"string\",\n        \"state-initial\": \"string\",\n        \"county-name\": \"string\",\n        \"timezone-name\": \"string\",\n        \"nation\": \"string\",\n        \"nearest-city\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78282ef5-af48-4290-aceb-eb1fb5ece585",
+              "name": "Bad request — invalid parameters or missing required fields",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datum",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6097\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "333325c4-57a8-4f32-93da-2e45eb270f44",
+          "name": "Create Location",
+          "request": {
+            "name": "Create Location",
+            "description": {
+              "content": "Creates a new location record in CWMS. Requires authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"office-id\": \"<string>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"elevation\": \"<double>\",\n  \"horizontal-datum\": \"<string>\",\n  \"vertical-datum\": \"<string>\",\n  \"elevation-units\": \"<string>\",\n  \"public-name\": \"<string>\",\n  \"long-name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"type\": \"<string>\",\n  \"state-initial\": \"<string>\",\n  \"county-name\": \"<string>\",\n  \"timezone-name\": \"<string>\",\n  \"nation\": \"<string>\",\n  \"nearest-city\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a4c48b32-8af3-4449-b162-890da723b125",
+              "name": "Location created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"office-id\": \"<string>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"elevation\": \"<double>\",\n  \"horizontal-datum\": \"<string>\",\n  \"vertical-datum\": \"<string>\",\n  \"elevation-units\": \"<string>\",\n  \"public-name\": \"<string>\",\n  \"long-name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"type\": \"<string>\",\n  \"state-initial\": \"<string>\",\n  \"county-name\": \"<string>\",\n  \"timezone-name\": \"<string>\",\n  \"nation\": \"<string>\",\n  \"nearest-city\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ce9a1408-8906-460c-9183-a57fa507d61e",
+              "name": "Bad request — invalid parameters or missing required fields",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"office-id\": \"<string>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"elevation\": \"<double>\",\n  \"horizontal-datum\": \"<string>\",\n  \"vertical-datum\": \"<string>\",\n  \"elevation-units\": \"<string>\",\n  \"public-name\": \"<string>\",\n  \"long-name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"type\": \"<string>\",\n  \"state-initial\": \"<string>\",\n  \"county-name\": \"<string>\",\n  \"timezone-name\": \"<string>\",\n  \"nation\": \"<string>\",\n  \"nearest-city\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6097\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "330a7707-a9d6-4ab4-846b-c10c0f8b8845",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"office-id\": \"<string>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"elevation\": \"<double>\",\n  \"horizontal-datum\": \"<string>\",\n  \"vertical-datum\": \"<string>\",\n  \"elevation-units\": \"<string>\",\n  \"public-name\": \"<string>\",\n  \"long-name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"type\": \"<string>\",\n  \"state-initial\": \"<string>\",\n  \"county-name\": \"<string>\",\n  \"timezone-name\": \"<string>\",\n  \"nation\": \"<string>\",\n  \"nearest-city\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6097\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8df1696c-082e-4964-964b-cee3aae63ed3",
+          "name": "Get Location",
+          "request": {
+            "name": "Get Location",
+            "description": {
+              "content": "Returns data for a specific USACE location.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "locations",
+                ":location-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "office",
+                  "value": "<string>",
+                  "description": "Three-character USACE district office code"
+                },
+                {
+                  "disabled": false,
+                  "key": "unit",
+                  "value": "<string>",
+                  "description": "Measurement unit system (EN or SI)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "location-id",
+                  "description": "(Required) The CWMS location identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ff03ec86-527e-4158-9e88-fc1bc65b4d5d",
+              "name": "Location data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unit",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location-id",
+                      "description": "(Required) The CWMS location identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"office-id\": \"string\",\n  \"latitude\": 5609.48809146854,\n  \"longitude\": 4232.761453695058,\n  \"elevation\": 2122.507303715704,\n  \"horizontal-datum\": \"string\",\n  \"vertical-datum\": \"string\",\n  \"elevation-units\": \"string\",\n  \"public-name\": \"string\",\n  \"long-name\": \"string\",\n  \"description\": \"string\",\n  \"kind\": \"string\",\n  \"type\": \"string\",\n  \"state-initial\": \"string\",\n  \"county-name\": \"string\",\n  \"timezone-name\": \"string\",\n  \"nation\": \"string\",\n  \"nearest-city\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2874add1-4b73-4e72-af30-ce5009229fe7",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unit",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location-id",
+                      "description": "(Required) The CWMS location identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6097\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d5ab6d1-25eb-41dc-abf0-4725337b7ff9",
+          "name": "Update Location",
+          "request": {
+            "name": "Update Location",
+            "description": {
+              "content": "Updates an existing location record. Requires authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "locations",
+                ":location-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "location-id",
+                  "description": "(Required) The CWMS location identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"office-id\": \"<string>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"elevation\": \"<double>\",\n  \"horizontal-datum\": \"<string>\",\n  \"vertical-datum\": \"<string>\",\n  \"elevation-units\": \"<string>\",\n  \"public-name\": \"<string>\",\n  \"long-name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"type\": \"<string>\",\n  \"state-initial\": \"<string>\",\n  \"county-name\": \"<string>\",\n  \"timezone-name\": \"<string>\",\n  \"nation\": \"<string>\",\n  \"nearest-city\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d4bc70e6-55e2-434c-9a3e-dcb889d34ed1",
+              "name": "Location updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location-id",
+                      "description": "(Required) The CWMS location identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"office-id\": \"<string>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"elevation\": \"<double>\",\n  \"horizontal-datum\": \"<string>\",\n  \"vertical-datum\": \"<string>\",\n  \"elevation-units\": \"<string>\",\n  \"public-name\": \"<string>\",\n  \"long-name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"type\": \"<string>\",\n  \"state-initial\": \"<string>\",\n  \"county-name\": \"<string>\",\n  \"timezone-name\": \"<string>\",\n  \"nation\": \"<string>\",\n  \"nearest-city\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "03f7ae22-03f7-4191-977b-361ab33b21b3",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location-id",
+                      "description": "(Required) The CWMS location identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"office-id\": \"<string>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"elevation\": \"<double>\",\n  \"horizontal-datum\": \"<string>\",\n  \"vertical-datum\": \"<string>\",\n  \"elevation-units\": \"<string>\",\n  \"public-name\": \"<string>\",\n  \"long-name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"type\": \"<string>\",\n  \"state-initial\": \"<string>\",\n  \"county-name\": \"<string>\",\n  \"timezone-name\": \"<string>\",\n  \"nation\": \"<string>\",\n  \"nearest-city\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6097\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f51d8798-3bde-4605-9ab0-ca2ca830b798",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location-id",
+                      "description": "(Required) The CWMS location identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"office-id\": \"<string>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"elevation\": \"<double>\",\n  \"horizontal-datum\": \"<string>\",\n  \"vertical-datum\": \"<string>\",\n  \"elevation-units\": \"<string>\",\n  \"public-name\": \"<string>\",\n  \"long-name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"type\": \"<string>\",\n  \"state-initial\": \"<string>\",\n  \"county-name\": \"<string>\",\n  \"timezone-name\": \"<string>\",\n  \"nation\": \"<string>\",\n  \"nearest-city\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6097\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4da5f632-a1db-48b6-b31a-7516990c371b",
+          "name": "Delete Location",
+          "request": {
+            "name": "Delete Location",
+            "description": {
+              "content": "Deletes a location record. Requires authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "locations",
+                ":location-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "office",
+                  "value": "<string>",
+                  "description": "(Required) Three-character USACE district office code"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "location-id",
+                  "description": "(Required) The CWMS location identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "82c33eae-5d2d-4353-9527-cc57059fe858",
+              "name": "Location deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location-id",
+                      "description": "(Required) The CWMS location identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c9471096-e3b2-48f8-8ede-e68d1b7b6347",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location-id",
+                      "description": "(Required) The CWMS location identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6097\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "955f0c14-3a4c-438a-9584-d90ca1b0b4c3",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location-id",
+                      "description": "(Required) The CWMS location identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6097\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cwms-data.usace.army.mil/cwms-data",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5c9218cd-a216-4788-add7-34a36a2b21e1",
+    "name": "CWMS Data Basins Locations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.\n\nContact Support:\n Name: USACE CWMS Data API Support",
+      "type": "text/plain"
+    }
+  }
+}

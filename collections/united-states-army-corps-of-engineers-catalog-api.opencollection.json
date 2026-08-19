@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CWMS Data Basins Catalog API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Catalog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/catalog/:datastore-type",
+            "params": [
+              {
+                "name": "datastore-type",
+                "value": "",
+                "type": "path",
+                "description": "The type of data to catalog (TIMESERIES, LOCATIONS, RATINGS, etc.)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response"
+              },
+              {
+                "name": "page-size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page (max 500)"
+              },
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code (e.g., SWT, LRN)"
+              },
+              {
+                "name": "like",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using a CWMS wildcard pattern"
+              }
+            ]
+          },
+          "docs": "Returns a catalog of available time series, locations, or other data stored in CWMS. Use this endpoint to discover available data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

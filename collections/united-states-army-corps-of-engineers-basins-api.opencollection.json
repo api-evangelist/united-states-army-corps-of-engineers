@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CWMS Data Basins API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Basins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Basins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/basins",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "basin-id",
+                "value": "",
+                "type": "query",
+                "description": "Basin identifier (supports wildcards)"
+              },
+              {
+                "name": "unit",
+                "value": "",
+                "type": "query",
+                "description": "Measurement unit system (EN or SI)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              },
+              {
+                "name": "page-size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Returns river basin information for USACE water management areas."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

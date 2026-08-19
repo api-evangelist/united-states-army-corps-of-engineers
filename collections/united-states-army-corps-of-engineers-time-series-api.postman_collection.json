@@ -1,0 +1,554 @@
+{
+  "item": [
+    {
+      "id": "6b3c3bae-e275-4a2b-af87-3a2949053ece",
+      "name": "Time Series",
+      "description": {
+        "content": "Time series data retrieval and management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8df956eb-6913-406c-8d97-3004a45314ce",
+          "name": "Get Time Series",
+          "request": {
+            "name": "Get Time Series",
+            "description": {
+              "content": "Returns time series data for a specified time window. Time series data includes measurements such as river stage, flow, precipitation, temperature, and reservoir pool elevation over time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "timeseries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) The time series identifier in CWMS format (e.g., DALT2.Stage.Inst.15Minutes.0.raw)"
+                },
+                {
+                  "disabled": false,
+                  "key": "office",
+                  "value": "<string>",
+                  "description": "Three-character USACE district office code"
+                },
+                {
+                  "disabled": false,
+                  "key": "unit",
+                  "value": "<string>",
+                  "description": "Measurement unit for the returned data"
+                },
+                {
+                  "disabled": false,
+                  "key": "datum",
+                  "value": "<string>",
+                  "description": "Vertical datum for elevation values"
+                },
+                {
+                  "disabled": false,
+                  "key": "begin",
+                  "value": "<string>",
+                  "description": "Start of time window in ISO 8601 format or milliseconds since epoch"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End of time window in ISO 8601 format or milliseconds since epoch"
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "Timezone for interpreting date/time values"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Response format"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<string>",
+                  "description": "Pagination cursor from a previous response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page-size",
+                  "value": "<integer>",
+                  "description": "Number of time series values per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7f055f1f-fccf-4f43-9ac3-f0ec77d5ec41",
+              "name": "Time series data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeseries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datum",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "begin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"office-id\": \"string\",\n  \"units\": \"string\",\n  \"interval\": 393,\n  \"interval-offset\": 442,\n  \"time-zone\": \"string\",\n  \"values\": [\n    [\n      4013.2402048581994,\n      8260.458935896942\n    ],\n    [\n      9343.332349808303,\n      3809.506854822909\n    ]\n  ],\n  \"total\": 9965,\n  \"page\": \"string\",\n  \"next-page\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52643ea7-c512-433d-ab9c-eee15c40a037",
+              "name": "Bad request — invalid parameters or missing required fields",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeseries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datum",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "begin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 560\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84ae0f47-91a4-4d9b-b055-a977965c942a",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeseries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datum",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "begin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 560\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b05ebfa-45ec-4de8-a8db-b8634a6f9c81",
+          "name": "Get Recent Time Series",
+          "request": {
+            "name": "Get Recent Time Series",
+            "description": {
+              "content": "Returns the most recent time series values. Useful for displaying current conditions at USACE locations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "timeseries",
+                "recent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "office",
+                  "value": "<string>",
+                  "description": "Three-character USACE district office code"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Time series identifier (supports CWMS wildcards)"
+                },
+                {
+                  "disabled": false,
+                  "key": "recently-changed-within",
+                  "value": "<string>",
+                  "description": "ISO 8601 duration for how recently the data was updated (e.g., PT2H for 2 hours)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "200ea018-4d3c-4686-9e3b-e62df1785d0d",
+              "name": "Recent time series data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeseries",
+                    "recent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recently-changed-within",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eac62586-a847-4663-819d-271cccc11cb4",
+          "name": "Get Filtered Time Series",
+          "request": {
+            "name": "Get Filtered Time Series",
+            "description": {
+              "content": "Returns filtered time series data based on specified criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "timeseries",
+                "filtered"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "office",
+                  "value": "<string>",
+                  "description": "Three-character USACE district office code"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Time series identifier (supports CWMS wildcards)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e38092d5-3c60-4eab-b71a-802fd2949f9d",
+              "name": "Filtered time series data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeseries",
+                    "filtered"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cwms-data.usace.army.mil/cwms-data",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ac7bb36f-0d8e-440f-ab87-c792486b15f9",
+    "name": "CWMS Data Basins Time Series API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.\n\nContact Support:\n Name: USACE CWMS Data API Support",
+      "type": "text/plain"
+    }
+  }
+}

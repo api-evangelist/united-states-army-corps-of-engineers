@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CWMS Data Basins Parameters API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Parameters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/parameters"
+          },
+          "docs": "Returns the list of physical parameters available in the CWMS system (e.g., Stage, Flow, Precip, Temp)."
+        },
+        {
+          "info": {
+            "name": "Get Units",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/units",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format"
+              }
+            ]
+          },
+          "docs": "Returns the list of measurement units available in the CWMS system."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

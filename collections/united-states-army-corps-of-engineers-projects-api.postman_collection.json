@@ -1,0 +1,144 @@
+{
+  "item": [
+    {
+      "id": "c6d380af-fabf-4384-a049-14ef6a79a59c",
+      "name": "Projects",
+      "description": {
+        "content": "USACE project management including locks, gates, turbines, and outlets",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f5478a17-ca4c-4624-a99e-6552a09a6321",
+          "name": "Get Projects",
+          "request": {
+            "name": "Get Projects",
+            "description": {
+              "content": "Returns USACE water resource projects (dams, locks, reservoirs).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "office",
+                  "value": "<string>",
+                  "description": "Three-character USACE district office code"
+                },
+                {
+                  "disabled": false,
+                  "key": "id-mask",
+                  "value": "<string>",
+                  "description": "Project ID mask (supports wildcards)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<string>",
+                  "description": "Pagination cursor"
+                },
+                {
+                  "disabled": false,
+                  "key": "page-size",
+                  "value": "<integer>",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c71aa9e-1c96-409a-abcb-8631e25edc9f",
+              "name": "Project data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id-mask",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cwms-data.usace.army.mil/cwms-data",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6ad64167-9261-4b8f-beeb-923572917d6a",
+    "name": "CWMS Data Basins Projects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.\n\nContact Support:\n Name: USACE CWMS Data API Support",
+      "type": "text/plain"
+    }
+  }
+}

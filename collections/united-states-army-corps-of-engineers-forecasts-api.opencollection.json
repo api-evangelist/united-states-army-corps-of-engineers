@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CWMS Data Basins Forecasts API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Forecasts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Forecast Specifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/forecast-spec",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "spec-id-mask",
+                "value": "",
+                "type": "query",
+                "description": "Mask for filtering forecast spec IDs (supports wildcards)"
+              },
+              {
+                "name": "designator-mask",
+                "value": "",
+                "type": "query",
+                "description": "Mask for filtering designators"
+              },
+              {
+                "name": "location-mask",
+                "value": "",
+                "type": "query",
+                "description": "Mask for filtering locations"
+              }
+            ]
+          },
+          "docs": "Returns forecast specifications available in the CWMS system."
+        },
+        {
+          "info": {
+            "name": "Get Forecast Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/forecast-instance",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Forecast spec name"
+              },
+              {
+                "name": "designator",
+                "value": "",
+                "type": "query",
+                "description": "Forecast designator"
+              },
+              {
+                "name": "forecast-date",
+                "value": "",
+                "type": "query",
+                "description": "Forecast issue date in ISO 8601 format"
+              },
+              {
+                "name": "issue-date",
+                "value": "",
+                "type": "query",
+                "description": "Date forecast was issued in ISO 8601 format"
+              }
+            ]
+          },
+          "docs": "Returns forecast instances with time series data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

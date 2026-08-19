@@ -1,0 +1,172 @@
+{
+  "item": [
+    {
+      "id": "c7ca2c03-eda0-4354-bbd4-ed0b70517c21",
+      "name": "Version",
+      "description": {
+        "content": "API version information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aaff9a88-d2d0-48ff-919a-ee0e6e7b9961",
+          "name": "Get API Root",
+          "request": {
+            "name": "Get API Root",
+            "description": {
+              "content": "Returns a welcome message confirming the API is available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "05b939f8-f41f-48d6-8ab8-306477eb3e7a",
+              "name": "API root welcome message",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e45312a-a9ad-4d20-b492-0502dd0aa536",
+          "name": "Get API Version",
+          "request": {
+            "name": "Get API Version",
+            "description": {
+              "content": "Returns the current version of the CWMS Data API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11247cfa-ccad-4bf1-a956-ab2da6a98d6a",
+              "name": "API version information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cwms-data.usace.army.mil/cwms-data",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e1b9a9b6-4528-4d7e-9667-526403a7192f",
+    "name": "CWMS Data Basins Version API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.\n\nContact Support:\n Name: USACE CWMS Data API Support",
+      "type": "text/plain"
+    }
+  }
+}

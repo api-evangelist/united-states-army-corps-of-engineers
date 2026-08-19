@@ -1,0 +1,266 @@
+{
+  "item": [
+    {
+      "id": "1cde46d4-f225-44d4-a79c-f76a3a140bac",
+      "name": "Forecasts",
+      "description": {
+        "content": "Forecast instances and specifications",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bde9c83b-00d6-4b98-8a42-3f59eb58e14c",
+          "name": "Get Forecast Specifications",
+          "request": {
+            "name": "Get Forecast Specifications",
+            "description": {
+              "content": "Returns forecast specifications available in the CWMS system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "forecast-spec"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "office",
+                  "value": "<string>",
+                  "description": "Three-character USACE district office code"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec-id-mask",
+                  "value": "<string>",
+                  "description": "Mask for filtering forecast spec IDs (supports wildcards)"
+                },
+                {
+                  "disabled": false,
+                  "key": "designator-mask",
+                  "value": "<string>",
+                  "description": "Mask for filtering designators"
+                },
+                {
+                  "disabled": false,
+                  "key": "location-mask",
+                  "value": "<string>",
+                  "description": "Mask for filtering locations"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c7bcd40-4213-4419-810a-24cb8599b607",
+              "name": "Forecast specifications",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "forecast-spec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec-id-mask",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "designator-mask",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location-mask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5cc3808e-af19-4fe7-ac17-7e31c6a72d45",
+          "name": "Get Forecast Instances",
+          "request": {
+            "name": "Get Forecast Instances",
+            "description": {
+              "content": "Returns forecast instances with time series data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "forecast-instance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "office",
+                  "value": "<string>",
+                  "description": "Three-character USACE district office code"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Forecast spec name"
+                },
+                {
+                  "disabled": false,
+                  "key": "designator",
+                  "value": "<string>",
+                  "description": "Forecast designator"
+                },
+                {
+                  "disabled": false,
+                  "key": "forecast-date",
+                  "value": "<string>",
+                  "description": "Forecast issue date in ISO 8601 format"
+                },
+                {
+                  "disabled": false,
+                  "key": "issue-date",
+                  "value": "<string>",
+                  "description": "Date forecast was issued in ISO 8601 format"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bbb385d9-bdee-4170-8894-1f032351347f",
+              "name": "Forecast instance data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "forecast-instance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "designator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "forecast-date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issue-date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cwms-data.usace.army.mil/cwms-data",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b2bab4c7-6124-4531-a70c-a4e271f4dff9",
+    "name": "CWMS Data Basins Forecasts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.\n\nContact Support:\n Name: USACE CWMS Data API Support",
+      "type": "text/plain"
+    }
+  }
+}

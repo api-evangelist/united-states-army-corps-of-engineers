@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CWMS Data Basins Locations API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/locations",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of location names (supports CWMS wildcards)"
+              },
+              {
+                "name": "unit",
+                "value": "",
+                "type": "query",
+                "description": "Measurement unit system (EN for English, SI for metric)"
+              },
+              {
+                "name": "datum",
+                "value": "",
+                "type": "query",
+                "description": "Vertical datum for elevation values (NAVD88, NGVD29, etc.)"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format"
+              }
+            ]
+          },
+          "docs": "Returns location data for USACE-managed sites including dams, reservoirs, stream gages, and other water resource facilities."
+        },
+        {
+          "info": {
+            "name": "Create Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/locations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new location record in CWMS. Requires authentication."
+        },
+        {
+          "info": {
+            "name": "Get Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/locations/:location-id",
+            "params": [
+              {
+                "name": "location-id",
+                "value": "",
+                "type": "path",
+                "description": "The CWMS location identifier"
+              },
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "unit",
+                "value": "",
+                "type": "query",
+                "description": "Measurement unit system (EN or SI)"
+              }
+            ]
+          },
+          "docs": "Returns data for a specific USACE location."
+        },
+        {
+          "info": {
+            "name": "Update Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/locations/:location-id",
+            "params": [
+              {
+                "name": "location-id",
+                "value": "",
+                "type": "path",
+                "description": "The CWMS location identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing location record. Requires authentication."
+        },
+        {
+          "info": {
+            "name": "Delete Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/locations/:location-id",
+            "params": [
+              {
+                "name": "location-id",
+                "value": "",
+                "type": "path",
+                "description": "The CWMS location identifier"
+              },
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a location record. Requires authentication."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,184 @@
+{
+  "item": [
+    {
+      "id": "835a253f-b96b-4bf3-baae-bd2fb6f9663c",
+      "name": "Parameters",
+      "description": {
+        "content": "Physical parameters and units",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fcf3c214-094a-4283-8151-7e28ef832dd1",
+          "name": "Get Parameters",
+          "request": {
+            "name": "Get Parameters",
+            "description": {
+              "content": "Returns the list of physical parameters available in the CWMS system (e.g., Stage, Flow, Precip, Temp).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parameters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4a85151f-5548-4ed9-a0ff-0c2a06cc3c06",
+              "name": "List of CWMS parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parameters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "daeda74c-6817-40fb-b7b7-cf05e8735901",
+          "name": "Get Units",
+          "request": {
+            "name": "Get Units",
+            "description": {
+              "content": "Returns the list of measurement units available in the CWMS system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "units"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Response format"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df3ccfab-d003-4f8d-804d-21421f723738",
+              "name": "List of measurement units",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "units"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cwms-data.usace.army.mil/cwms-data",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "566acd7d-c5dc-4d51-b5a8-9fceed775b5e",
+    "name": "CWMS Data Basins Parameters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.\n\nContact Support:\n Name: USACE CWMS Data API Support",
+      "type": "text/plain"
+    }
+  }
+}

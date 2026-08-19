@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CWMS Data Basins Ratings API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ratings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Ratings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/ratings",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "rating-id",
+                "value": "",
+                "type": "query",
+                "description": "Rating identifier (supports CWMS wildcards)"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start of effective date range"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End of effective date range"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "Timezone for date/time values"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format"
+              }
+            ]
+          },
+          "docs": "Returns rating tables used to convert between measured values (e.g., stage to flow, gate opening to discharge)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

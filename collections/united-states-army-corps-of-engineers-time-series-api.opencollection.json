@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CWMS Data Basins Time Series API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Time Series",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Time Series",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/timeseries",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "The time series identifier in CWMS format (e.g., DALT2.Stage.Inst.15Minutes.0.raw)"
+              },
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "unit",
+                "value": "",
+                "type": "query",
+                "description": "Measurement unit for the returned data"
+              },
+              {
+                "name": "datum",
+                "value": "",
+                "type": "query",
+                "description": "Vertical datum for elevation values"
+              },
+              {
+                "name": "begin",
+                "value": "",
+                "type": "query",
+                "description": "Start of time window in ISO 8601 format or milliseconds since epoch"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End of time window in ISO 8601 format or milliseconds since epoch"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "Timezone for interpreting date/time values"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response"
+              },
+              {
+                "name": "page-size",
+                "value": "",
+                "type": "query",
+                "description": "Number of time series values per page"
+              }
+            ]
+          },
+          "docs": "Returns time series data for a specified time window. Time series data includes measurements such as river stage, flow, precipitation, temperature, and reservoir pool elevation over time."
+        },
+        {
+          "info": {
+            "name": "Get Recent Time Series",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/timeseries/recent",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Time series identifier (supports CWMS wildcards)"
+              },
+              {
+                "name": "recently-changed-within",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 duration for how recently the data was updated (e.g., PT2H for 2 hours)"
+              }
+            ]
+          },
+          "docs": "Returns the most recent time series values. Useful for displaying current conditions at USACE locations."
+        },
+        {
+          "info": {
+            "name": "Get Filtered Time Series",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/timeseries/filtered",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Time series identifier (supports CWMS wildcards)"
+              }
+            ]
+          },
+          "docs": "Returns filtered time series data based on specified criteria."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

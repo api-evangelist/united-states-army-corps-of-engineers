@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CWMS Data Basins Version API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Version",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get API Root",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/"
+          },
+          "docs": "Returns a welcome message confirming the API is available."
+        },
+        {
+          "info": {
+            "name": "Get API Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/version"
+          },
+          "docs": "Returns the current version of the CWMS Data API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

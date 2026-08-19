@@ -1,0 +1,223 @@
+{
+  "item": [
+    {
+      "id": "a02baf04-825f-4b58-9aa6-74dc10fa6170",
+      "name": "Catalog",
+      "description": {
+        "content": "Browse available data in the CWMS catalog",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a93e7182-0dcd-4bd2-8d55-1ec3b400f647",
+          "name": "Get Catalog",
+          "request": {
+            "name": "Get Catalog",
+            "description": {
+              "content": "Returns a catalog of available time series, locations, or other data stored in CWMS. Use this endpoint to discover available data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                ":datastore-type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<string>",
+                  "description": "Pagination cursor from a previous response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page-size",
+                  "value": "500",
+                  "description": "Number of results to return per page (max 500)"
+                },
+                {
+                  "disabled": false,
+                  "key": "office",
+                  "value": "<string>",
+                  "description": "Three-character USACE district office code (e.g., SWT, LRN)"
+                },
+                {
+                  "disabled": false,
+                  "key": "like",
+                  "value": "<string>",
+                  "description": "Filter results using a CWMS wildcard pattern"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "datastore-type",
+                  "description": "(Required) The type of data to catalog (TIMESERIES, LOCATIONS, RATINGS, etc.)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6b970548-f10e-4753-8657-1a7e9369a3a8",
+              "name": "Catalog results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    ":datastore-type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "500"
+                    },
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "like",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datastore-type",
+                      "description": "(Required) The type of data to catalog (TIMESERIES, LOCATIONS, RATINGS, etc.)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": \"string\",\n  \"next-page\": \"string\",\n  \"total\": 7480,\n  \"page-size\": 1012,\n  \"entries\": [\n    {\n      \"name\": \"string\",\n      \"office\": \"string\",\n      \"units\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"office\": \"string\",\n      \"units\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21316ea9-298c-44eb-86a6-37345c18c4a7",
+              "name": "Bad request — invalid parameters or missing required fields",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    ":datastore-type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "500"
+                    },
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "like",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datastore-type",
+                      "description": "(Required) The type of data to catalog (TIMESERIES, LOCATIONS, RATINGS, etc.)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 5159\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cwms-data.usace.army.mil/cwms-data",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "95bfce6c-3fb2-4d02-8cb8-9c8b7bd3cf35",
+    "name": "CWMS Data Basins Catalog API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.\n\nContact Support:\n Name: USACE CWMS Data API Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,306 @@
+{
+  "item": [
+    {
+      "id": "c30e23ff-0691-4128-b386-c773c7891467",
+      "name": "Levels",
+      "description": {
+        "content": "Location levels and stage-discharge relationships",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ec9f4469-befc-4d77-badd-8193d15fcbf4",
+          "name": "Get Level Time Series",
+          "request": {
+            "name": "Get Level Time Series",
+            "description": {
+              "content": "Returns time series for a specified location level.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "levels",
+                ":level-id",
+                "timeseries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "office",
+                  "value": "<string>",
+                  "description": "Three-character USACE district office code"
+                },
+                {
+                  "disabled": false,
+                  "key": "begin",
+                  "value": "<string>",
+                  "description": "Start of time window in ISO 8601 format"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End of time window in ISO 8601 format"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "level-id",
+                  "description": "(Required) The location level identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4c50ea61-9e70-4da4-8aab-8f6dce48626b",
+              "name": "Level time series data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "levels",
+                    ":level-id",
+                    "timeseries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "begin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "level-id",
+                      "description": "(Required) The location level identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc4c0ec4-08ee-4608-87eb-75a1afc96ce0",
+          "name": "Get Levels",
+          "request": {
+            "name": "Get Levels",
+            "description": {
+              "content": "Returns location levels (flood stage, normal pool, etc.) for USACE locations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "levels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "office",
+                  "value": "<string>",
+                  "description": "Three-character USACE district office code"
+                },
+                {
+                  "disabled": false,
+                  "key": "location-id",
+                  "value": "<string>",
+                  "description": "Location identifier (supports wildcards)"
+                },
+                {
+                  "disabled": false,
+                  "key": "begin",
+                  "value": "<string>",
+                  "description": "Start of effective date range"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End of effective date range"
+                },
+                {
+                  "disabled": false,
+                  "key": "unit",
+                  "value": "<string>",
+                  "description": "Measurement unit system (EN or SI)"
+                },
+                {
+                  "disabled": false,
+                  "key": "datum",
+                  "value": "<string>",
+                  "description": "Vertical datum for elevation values"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<string>",
+                  "description": "Pagination cursor"
+                },
+                {
+                  "disabled": false,
+                  "key": "page-size",
+                  "value": "<integer>",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76bc0190-09b8-47ed-8a2d-746d685cea07",
+              "name": "Location levels data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "levels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "office",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "begin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datum",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cwms-data.usace.army.mil/cwms-data",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "153a704f-2389-40b6-b246-f1d60536b65a",
+    "name": "CWMS Data Basins Levels API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.\n\nContact Support:\n Name: USACE CWMS Data API Support",
+      "type": "text/plain"
+    }
+  }
+}

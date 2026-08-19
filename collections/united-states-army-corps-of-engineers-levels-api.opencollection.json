@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CWMS Data Basins Levels API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Levels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Level Time Series",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/levels/:level-id/timeseries",
+            "params": [
+              {
+                "name": "level-id",
+                "value": "",
+                "type": "path",
+                "description": "The location level identifier"
+              },
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "begin",
+                "value": "",
+                "type": "query",
+                "description": "Start of time window in ISO 8601 format"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End of time window in ISO 8601 format"
+              }
+            ]
+          },
+          "docs": "Returns time series for a specified location level."
+        },
+        {
+          "info": {
+            "name": "Get Levels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cwms-data.usace.army.mil/cwms-data/levels",
+            "params": [
+              {
+                "name": "office",
+                "value": "",
+                "type": "query",
+                "description": "Three-character USACE district office code"
+              },
+              {
+                "name": "location-id",
+                "value": "",
+                "type": "query",
+                "description": "Location identifier (supports wildcards)"
+              },
+              {
+                "name": "begin",
+                "value": "",
+                "type": "query",
+                "description": "Start of effective date range"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End of effective date range"
+              },
+              {
+                "name": "unit",
+                "value": "",
+                "type": "query",
+                "description": "Measurement unit system (EN or SI)"
+              },
+              {
+                "name": "datum",
+                "value": "",
+                "type": "query",
+                "description": "Vertical datum for elevation values"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              },
+              {
+                "name": "page-size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Returns location levels (flood stage, normal pool, etc.) for USACE locations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
