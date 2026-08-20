@@ -27,6 +27,12 @@ modified: '2026-05-19'
 specificationVersion: '0.23'
 tags:
   - Engineering
+  - Federal-Government
+  - Water Resources
+  - Hydrology
+  - Civil Engineering
+tags_raw:
+  - Engineering
   - Federal Government
   - Water Resources
   - Hydrology
@@ -71,6 +77,8 @@ apis:
   humanURL: https://cwms-data.usace.army.mil/cwms-data/
   baseURL: https://cwms-data.usace.army.mil/cwms-data
   tags:
+  - Forecast
+  tags_raw:
   - Forecasts
   properties:
   - type: OpenAPI
@@ -137,6 +145,8 @@ apis:
   humanURL: https://cwms-data.usace.army.mil/cwms-data/
   baseURL: https://cwms-data.usace.army.mil/cwms-data
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
