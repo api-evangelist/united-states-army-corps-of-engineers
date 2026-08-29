@@ -6,6 +6,19 @@ description: >-
   API, a RESTful service for accessing real-time and historical water management data including time series
   measurements, location information, ratings, forecasts, and project data for USACE-managed water resources across the
   United States.
+deliveryModel:
+  model: self-hosted
+  license: MIT
+  open_source: true
+  commercial: false
+  callable_host: true
+  label: Self-hosted open source · you run it yourself
+  confidence: high
+  source:
+  - license
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -207,6 +220,12 @@ apis:
   - type: SwaggerUI
     url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
 common:
+  - type: IssueTracker
+    url: https://github.com/USACE/cwms-data-api/issues
+  - type: Releases
+    url: https://github.com/USACE/cwms-data-api/releases
+  - type: ContributionGuide
+    url: https://github.com/USACE/cwms-data-api/blob/develop/CONTRIBUTING.md
   - type: License
     name: MIT
     url: https://github.com/USACE/cwms-data-api/blob/develop/LICENSE
