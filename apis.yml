@@ -126,6 +126,8 @@ apis:
   humanURL: https://cwms-data.usace.army.mil/cwms-data/
   baseURL: https://cwms-data.usace.army.mil/cwms-data
   tags:
+  - Location
+  tags_raw:
   - Locations
   properties:
   - type: OpenAPI
