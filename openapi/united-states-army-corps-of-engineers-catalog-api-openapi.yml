@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: CWMS Data Basins Catalog API
+  title: CWMS Data Catalog API
   description: The Corps Water Management System (CWMS) Data API provides a RESTful interface for accessing water management data from the U.S. Army Corps of Engineers. This includes time series data, locations, levels, ratings, forecasts, projects, turbines, gates, and water supply information for USACE-managed water resources across the United States.
   version: 3.0.0
   contact:
@@ -77,6 +77,27 @@ paths:
           $ref: '#/components/responses/BadRequest'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+        status:
+          type: integer
+          description: HTTP status code
+    CatalogEntry:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The identifier for this catalog entry
+        office:
+          type: string
+          description: The owning USACE district office code
+        units:
+          type: string
+          description: Measurement units
     CatalogResponse:
       type: object
       properties:
@@ -96,27 +117,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CatalogEntry'
-    CatalogEntry:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The identifier for this catalog entry
-        office:
-          type: string
-          description: The owning USACE district office code
-        units:
-          type: string
-          description: Measurement units
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description
-        status:
-          type: integer
-          description: HTTP status code
   responses:
     BadRequest:
       description: Bad request — invalid parameters or missing required fields

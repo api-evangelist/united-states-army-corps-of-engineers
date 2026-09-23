@@ -1,16 +1,7 @@
 {
   "provider": "united-states-army-corps-of-engineers",
   "sources": [
-    "united-states-army-corps-of-engineers-basins-api-openapi.yml",
-    "united-states-army-corps-of-engineers-catalog-api-openapi.yml",
-    "united-states-army-corps-of-engineers-forecasts-api-openapi.yml",
-    "united-states-army-corps-of-engineers-levels-api-openapi.yml",
-    "united-states-army-corps-of-engineers-locations-api-openapi.yml",
-    "united-states-army-corps-of-engineers-parameters-api-openapi.yml",
-    "united-states-army-corps-of-engineers-projects-api-openapi.yml",
-    "united-states-army-corps-of-engineers-ratings-api-openapi.yml",
-    "united-states-army-corps-of-engineers-time-series-api-openapi.yml",
-    "united-states-army-corps-of-engineers-version-api-openapi.yml"
+    "_original/cwms-data-api-openapi.yml"
   ],
   "outputs": [
     "united-states-army-corps-of-engineers-basins-api-openapi.yml",
@@ -27,6 +18,21 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "cwms-data-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "united-states-army-corps-of-engineers-basins-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-army-corps-of-engineers-catalog-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-army-corps-of-engineers-forecasts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-army-corps-of-engineers-levels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-army-corps-of-engineers-locations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-army-corps-of-engineers-parameters-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-army-corps-of-engineers-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-army-corps-of-engineers-ratings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-army-corps-of-engineers-time-series-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-army-corps-of-engineers-version-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
