@@ -41,7 +41,7 @@ modified: '2026-05-19'
 specificationVersion: '0.23'
 tags:
   - Engineering
-  - Federal-Government
+  - Federal Government
   - Water Resources
   - Hydrology
   - Civil Engineering
@@ -51,6 +51,7 @@ tags_raw:
   - Water Resources
   - Hydrology
   - Civil Engineering
+  - Federal-Government
 apis:
 - aid: united-states-army-corps-of-engineers:united-states-army-corps-of-engineers-basins-api
   name: United States Army Corps of Engineers Basins API
