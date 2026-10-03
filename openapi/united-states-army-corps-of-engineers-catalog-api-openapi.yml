@@ -76,6 +76,13 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
+  responses:
+    BadRequest:
+      description: Bad request — invalid parameters or missing required fields
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     CatalogEntry:
       type: object
@@ -89,6 +96,15 @@ components:
         units:
           type: string
           description: Measurement units
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+        status:
+          type: integer
+          description: HTTP status code
     CatalogResponse:
       type: object
       properties:
@@ -108,22 +124,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CatalogEntry'
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description
-        status:
-          type: integer
-          description: HTTP status code
-  responses:
-    BadRequest:
-      description: Bad request — invalid parameters or missing required fields
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

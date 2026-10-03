@@ -191,45 +191,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — invalid parameters or missing required fields
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    LocationsResponse:
-      type: object
-      properties:
-        locations:
-          type: object
-          properties:
-            location:
-              type: array
-              items:
-                $ref: '#/components/schemas/Location'
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description
-        status:
-          type: integer
-          description: HTTP status code
     Location:
       type: object
       properties:
@@ -290,6 +252,44 @@ components:
         nearest-city:
           type: string
           description: Nearest city name
+    LocationsResponse:
+      type: object
+      properties:
+        locations:
+          type: object
+          properties:
+            location:
+              type: array
+              items:
+                $ref: '#/components/schemas/Location'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+        status:
+          type: integer
+          description: HTTP status code
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — invalid parameters or missing required fields
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

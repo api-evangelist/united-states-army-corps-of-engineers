@@ -77,6 +77,13 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
+  responses:
+    BadRequest:
+      description: Bad request — invalid parameters or missing required fields
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -87,13 +94,6 @@ components:
         status:
           type: integer
           description: HTTP status code
-  responses:
-    BadRequest:
-      description: Bad request — invalid parameters or missing required fields
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
