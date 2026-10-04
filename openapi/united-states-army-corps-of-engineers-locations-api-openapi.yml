@@ -192,6 +192,16 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    LocationsResponse:
+      type: object
+      properties:
+        locations:
+          type: object
+          properties:
+            location:
+              type: array
+              items:
+                $ref: '#/components/schemas/Location'
     Location:
       type: object
       properties:
@@ -252,16 +262,6 @@ components:
         nearest-city:
           type: string
           description: Nearest city name
-    LocationsResponse:
-      type: object
-      properties:
-        locations:
-          type: object
-          properties:
-            location:
-              type: array
-              items:
-                $ref: '#/components/schemas/Location'
     Error:
       type: object
       properties:

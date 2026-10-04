@@ -174,15 +174,6 @@ components:
       description: An array of [timestamp (ms since epoch), value, quality code] tuples
       items:
         type: number
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description
-        status:
-          type: integer
-          description: HTTP status code
     TimeSeries:
       type: object
       properties:
@@ -218,6 +209,15 @@ components:
         next-page:
           type: string
           description: Next page cursor
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+        status:
+          type: integer
+          description: HTTP status code
   responses:
     BadRequest:
       description: Bad request — invalid parameters or missing required fields

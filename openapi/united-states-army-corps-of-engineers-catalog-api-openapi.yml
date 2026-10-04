@@ -84,27 +84,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    CatalogEntry:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The identifier for this catalog entry
-        office:
-          type: string
-          description: The owning USACE district office code
-        units:
-          type: string
-          description: Measurement units
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description
-        status:
-          type: integer
-          description: HTTP status code
     CatalogResponse:
       type: object
       properties:
@@ -124,6 +103,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CatalogEntry'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+        status:
+          type: integer
+          description: HTTP status code
+    CatalogEntry:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The identifier for this catalog entry
+        office:
+          type: string
+          description: The owning USACE district office code
+        units:
+          type: string
+          description: Measurement units
   securitySchemes:
     bearerAuth:
       type: http
