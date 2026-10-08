@@ -224,6 +224,12 @@ apis:
   - type: SwaggerUI
     url: https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html
 common:
+  - type: Plans
+    url: plans/united-states-army-corps-of-engineers-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/united-states-army-corps-of-engineers-rate-limits.yml
+  - type: FinOps
+    url: finops/united-states-army-corps-of-engineers-finops.yml
   - type: IssueTracker
     url: https://github.com/USACE/cwms-data-api/issues
   - type: Releases
