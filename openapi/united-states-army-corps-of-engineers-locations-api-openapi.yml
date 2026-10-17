@@ -192,16 +192,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    LocationsResponse:
-      type: object
-      properties:
-        locations:
-          type: object
-          properties:
-            location:
-              type: array
-              items:
-                $ref: '#/components/schemas/Location'
     Location:
       type: object
       properties:
@@ -271,9 +261,19 @@ components:
         status:
           type: integer
           description: HTTP status code
+    LocationsResponse:
+      type: object
+      properties:
+        locations:
+          type: object
+          properties:
+            location:
+              type: array
+              items:
+                $ref: '#/components/schemas/Location'
   responses:
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -284,8 +284,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
