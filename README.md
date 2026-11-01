@@ -1,4 +1,4 @@
-# United States Army Corps of Engineers (united-states-army-corps-of-engineers)
+# United States Army Corps of Engineers
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,62 +66,172 @@
 
 The U.S. Army Corps of Engineers (USACE) provides engineering and construction services for the nation, managing water resources, infrastructure, and environmental projects. USACE operates the Corps Water Management System (CWMS) Data API, a RESTful service for accessing real-time and historical water management data including time series measurements, location information, ratings, forecasts, and project data for USACE-managed water resources across the United States.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/united-states-army-corps-of-engineers/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/united-states-army-corps-of-engineers/refs/heads/main/apis.yml)
+**Areas:** Engineering · Federal Government · Water Resources · Hydrology · Civil Engineering
 
-## Scope
+## United States Army Corps of Engineers on APIs.io
 
-- **Type:** Index
+Everything profiled for United States Army Corps of Engineers is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/united-states-army-corps-of-engineers/](https://apis.io/providers/united-states-army-corps-of-engineers/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (10)
 
-- Engineering
-- Federal Government
-- Water Resources
-- Hydrology
-- Civil Engineering
+- [United States Army Corps of Engineers Basins API](https://apis.io/apis/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-basins-api/) — River basin information
+- [United States Army Corps of Engineers Catalog API](https://apis.io/apis/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-catalog-api/) — Browse available data in the CWMS catalog
+- [United States Army Corps of Engineers Forecasts API](https://apis.io/apis/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-forecasts-api/) — Forecast instances and specifications
+- [United States Army Corps of Engineers Levels API](https://apis.io/apis/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-levels-api/) — Location levels and stage-discharge relationships
+- [United States Army Corps of Engineers Locations API](https://apis.io/apis/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-locations-api/) — USACE location data including dams, reservoirs, streamgages, and sites
+- [United States Army Corps of Engineers Parameters API](https://apis.io/apis/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-parameters-api/) — Physical parameters and units
+- [United States Army Corps of Engineers Projects API](https://apis.io/apis/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-projects-api/) — USACE project management including locks, gates, turbines, and outlets
+- [United States Army Corps of Engineers Ratings API](https://apis.io/apis/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-ratings-api/) — Rating tables for converting between measured values
+- [United States Army Corps of Engineers Time Series API](https://apis.io/apis/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-time-series-api/) — Time series data retrieval and management
+- [United States Army Corps of Engineers Version API](https://apis.io/apis/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-version-api/) — API version information
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-12-25
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### CWMS Data API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-The Corps Water Management System (CWMS) Data API provides a RESTful interface for retrieving water management data from the U.S. Army Corps of Engineers. Supports access to time series, locations, ratings, forecasts, levels, projects, basins, and parameters for USACE-managed water resources nationwide.
+- [United States Army Corps Of Engineers Agentic Access](https://apis.io/agentic-access/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-agentic-access/)
 
-- **Human URL:** [https://cwms-data.usace.army.mil/cwms-data/](https://cwms-data.usace.army.mil/cwms-data/)
-- **Base URL:** `https://cwms-data.usace.army.mil/cwms-data`
+#### JSON Schema (2)
 
-#### Tags
+The data models the API reads and writes.
 
-- Water Management
-- Hydrology
-- Time Series
-- REST API
+- [CWMS Location](https://apis.io/schemas/united-states-army-corps-of-engineers/cwms-data-api-location/)
+- [CWMS Time Series](https://apis.io/schemas/united-states-army-corps-of-engineers/cwms-data-api-timeseries/)
 
-#### Properties
+#### JSON Structure (2)
 
-- [Documentation](https://cwms-data.usace.army.mil/cwms-data/)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/united-states-army-corps-of-engineers/refs/heads/main/openapi/cwms-data-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GitHub Repository](https://github.com/USACE/cwms-data-api)
-- [Swagger U I](https://cwms-data.usace.army.mil/cwms-data/swagger-ui.html)
-- [Postman Collection](collections/cwms-data-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cwms-data-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Data models expressed in JSON Structure.
 
-## Common Properties
+- [Cwms Data Api Location Structure](https://apis.io/json-structure/united-states-army-corps-of-engineers/cwms-data-api-location-structure/)
+- [Cwms Data Api Timeseries Structure](https://apis.io/json-structure/united-states-army-corps-of-engineers/cwms-data-api-timeseries-structure/)
 
-- [LinkedIn](https://www.linkedin.com/company/us-army-corps-of-engineers)
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [United States Army Corps Of Engineers Context](https://apis.io/jsonld/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [United States Army Corps of Engineers Vocabulary](https://apis.io/vocabularies/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Cwms Data Api Getcatalog Example](https://apis.io/examples/united-states-army-corps-of-engineers/cwms-data-api-getCatalog-example/)
+- [Cwms Data Api Getlocations Example](https://apis.io/examples/united-states-army-corps-of-engineers/cwms-data-api-getLocations-example/)
+- [Cwms Data Api Gettimeseries Example](https://apis.io/examples/united-states-army-corps-of-engineers/cwms-data-api-getTimeSeries-example/)
+
+#### Collections (11)
+
+Postman and Open Collection request collections.
+
+- [CWMS Data API](https://apis.io/collections/united-states-army-corps-of-engineers/open-cwms-data-api/)
+- [CWMS Data Basins API](https://apis.io/collections/united-states-army-corps-of-engineers/open-united-states-army-corps-of-engineers-basins-api/)
+- [CWMS Data Basins Catalog API](https://apis.io/collections/united-states-army-corps-of-engineers/open-united-states-army-corps-of-engineers-catalog-api/)
+- [CWMS Data Basins Forecasts API](https://apis.io/collections/united-states-army-corps-of-engineers/open-united-states-army-corps-of-engineers-forecasts-api/)
+- [CWMS Data Basins Levels API](https://apis.io/collections/united-states-army-corps-of-engineers/open-united-states-army-corps-of-engineers-levels-api/)
+- [CWMS Data Basins Locations API](https://apis.io/collections/united-states-army-corps-of-engineers/open-united-states-army-corps-of-engineers-locations-api/)
+- [CWMS Data Basins Parameters API](https://apis.io/collections/united-states-army-corps-of-engineers/open-united-states-army-corps-of-engineers-parameters-api/)
+- [CWMS Data Basins Projects API](https://apis.io/collections/united-states-army-corps-of-engineers/open-united-states-army-corps-of-engineers-projects-api/)
+- [CWMS Data Basins Ratings API](https://apis.io/collections/united-states-army-corps-of-engineers/open-united-states-army-corps-of-engineers-ratings-api/)
+- [CWMS Data Basins Time Series API](https://apis.io/collections/united-states-army-corps-of-engineers/open-united-states-army-corps-of-engineers-time-series-api/)
+- [CWMS Data Basins Version API](https://apis.io/collections/united-states-army-corps-of-engineers/open-united-states-army-corps-of-engineers-version-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [United States Army Corps of Engineers — cwms data api rules](https://apis.io/rules/united-states-army-corps-of-engineers/cwms-data-api-rules/)
+- [United States Army Corps of Engineers — jsonschema rules](https://apis.io/rules/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [United States Army Corps Of Engineers Authentication](https://apis.io/security/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-authentication/)
+- [United States Army Corps Of Engineers Domain Security](https://apis.io/security/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [United States Army Corps Of Engineers Plans Pricing](https://apis.io/plans/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [United States Army Corps Of Engineers Rate Limits](https://apis.io/rate-limits/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [United States Army Corps Of Engineers Finops](https://apis.io/finops/united-states-army-corps-of-engineers/united-states-army-corps-of-engineers-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.usace.army.mil/)
-- [Open Data](https://www.usace.army.mil/open/)
-- [Geospatial Data](https://geospatial-usace.opendata.arcgis.com/)
-- [Water Data](https://water.usace.army.mil/data)
-- [Digital Library](https://usace.contentdm.oclc.org/)
-- [Git Hub](https://github.com/USACE)
-- [Permits Data](https://permits.ops.usace.army.mil/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 33.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 56.9 |
+| Contract governance | 13.6 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 21.4 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Government & Public Sector
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/united-states-army-corps-of-engineers/](https://apis.io/providers/united-states-army-corps-of-engineers/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for United States Army Corps of Engineers: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/united-states-army-corps-of-engineers/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
